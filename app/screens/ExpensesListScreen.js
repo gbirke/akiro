@@ -1,9 +1,10 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Text, View, ListView, StatusBar, TouchableOpacity, Navigator, StyleSheet } from 'react-native';
+import { View, StatusBar, Navigator, StyleSheet } from 'react-native';
+import { List } from 'react-native-elements'
 
-import { FormattedCurrency } from 'react-native-globalize';
+import ExpenseListItem from '../components/ExpenseListItem';
 
 const dummyExpenses = [
   { date: '2016-10-24', amount: 500, payee: { name: 'Imbiss' }, account: { 'name': 'Bargeld' }, envelope: { name: 'Auswärts essen' } },
@@ -25,24 +26,19 @@ class ExpensesListScreen extends Component {
       <View style={ styles.expenseList }>
         <StatusBar />
         <View style={ styles.statusBarBackground } />
-        <ListView
-          dataSource={ this.state.expensesDataSource }
-          renderRow={ this._renderExpenseRow }
-        />
+        <List>
+          <ListView
+            dataSource={ this.state.expensesDataSource }
+            renderRow={ this._renderExpenseRow }
+          />
+        </List>
       </View>
     )
   }
 
   _renderExpenseRow( expense ) {
     return (
-      <TouchableOpacity
-        style={ styles.expenseRow }
-        onPress={ ( event ) => console.log( event, expense ) }>
-        <Text style={ styles.expenseRowPayee }>{ expense.payee.name }</Text>
-        <FormattedCurrency
-          currency="EUR" value={ expense.amount/100 }
-          style={ styles.expenseRowAmount } />
-      </TouchableOpacity>
+      <ExpenseListItem expense={expense} onPress={(evt) => console.log(evt, expense)} />
     )
   }
 
@@ -58,27 +54,6 @@ const styles = StyleSheet.create({
 
   statusBarBackground: {
     height: 20,
-  },
-
-  expenseRow: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "stretch",
-    height: 20,
-    marginLeft: 8,
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1,
-  },
-
-  expenseRowPayee: {
-    fontWeight: 'bold'
-  },
-
-  expenseRowAmount: {
-    flex: 1,
-    textAlign: "right",
-    paddingRight: 8,
-    fontWeight: 'bold',
   }
 
 })
