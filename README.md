@@ -7,27 +7,34 @@ The scope of this app is just entering your expenses as quickly and painlessly a
 "Akiro" is Esperanto for "purchase".
 
 ## Running the application
-For running the iOs app, the [React native CLI](https://facebook.github.io/react-native/docs/getting-started.html#the-react-native-cli) has to be installed. If it is inatelled, run
+For running the iOS app, the [React native CLI](https://facebook.github.io/react-native/docs/getting-started.html#the-react-native-cli) has to be installed. If it is installed, run
+
+    react-native run-ios  
 
 ## Next steps / Roadmap
 
 ### 0.1 Prototype
 - [x] GUI prototype: Expense list
+  - [x] Screen
+  - [ ] Add "Add Expense" Button in Expense List and connect it to navigator
 - [ ] GUI prototype: Form for entering expenses
-  * Amount (Plain text field)
-  * Selection of dummy payees
-  * Selection of dummy envelopes
-  * Selection of dummy accounts
-  * Memo
-  * Date ( current date )
-  * Save button
+  - [x] Amount (Plain text field)
+  - [ ] Selection of payees (with dummy data)
+    - [x] List Screen
+    - [ ] Search field for payee selection (hides section headers)
+  - [x] Selection of envelopes (with dummy data)
+  - [ ] Selection of accounts (with dummy data)
+  - [x] Memo
+  - [x] Date ( current date )
+  - [x] Save button
+- [ ] Checkmark for selected items in selection lists
 
 ### 0.2 Storage and export
 - [ ] Create DB-structure and integrate sqlite (https://github.com/andpor/react-native-sqlite-storage)
 - [ ] Put dummy values in DB
 - [ ] Add DB-connected search field for envelope and payee
-- [ ] Add new envelope to DB or payee of no exact match in search field
-- [ ] Store expense in DB
+- [ ] Add new payee to DB, if no exact match in search field
+- [ ] Store expense in DB (and update expense list screen)
 - [ ] Export expenses as CSV via mail
 
 ### 0.3 Speed up data entry
@@ -49,7 +56,16 @@ For running the iOs app, the [React native CLI](https://facebook.github.io/react
 - [ ] CSV export format
 - [ ] Geolocation on/off and radis
 
-### 0.7 Edit envelopes, payees and accounts
+### 0.7 CRUD for ancillary data
+- [ ] Add hamburger menu for editing
+- [ ] Payees
+  - [ ] CRUD
+  - Delete location data
+- [ ] Envelopes
+  - [ ] CRUD for Envelopes
+  - [ ] CRUD for Envelope Categories
+  - Move envelopes between categories
+- [ ] Accounts
 
 ### 1.0 Release
 - [ ] Icon
@@ -58,5 +74,5 @@ For running the iOs app, the [React native CLI](https://facebook.github.io/react
   - [ ] List sections for each date in expense list
 
 ### 2.0 The Future
-[ ] Sync by logging all the changes
-[ ] Android version
+- [ ] Sync by logging all the changes
+- [ ] Android version
