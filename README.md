@@ -6,6 +6,9 @@ The scope of this app is just entering your expenses as quickly and painlessly a
 
 "Akiro" is Esperanto for "purchase".
 
+## Running the application
+For running the iOs app, the [React native CLI](https://facebook.github.io/react-native/docs/getting-started.html#the-react-native-cli) has to be installed. If it is inatelled, run
+
 ## Next steps / Roadmap
 
 ### 0.1 Prototype
@@ -56,3 +59,4 @@ The scope of this app is just entering your expenses as quickly and painlessly a
 
 ### 2.0 The Future
 [ ] Sync by logging all the changes
+[ ] Android version
