@@ -1,23 +1,54 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { View, ListView, StatusBar, Navigator, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
 import { List, Text } from 'react-native-elements'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 
 const dummyEnvelopes = [
-  { name: 'Auswärts essen', id: 1 },
-  { name: 'Supermarkt', id: 2 },
-  { name: 'Naturkost', id: 3 },
+  { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
+  { name: 'Supermarkt', id: 2, category: 'Allgemeine Ausgaben' },
+  { name: 'Naturkost', id: 3, category: 'Allgemeine Ausgaben' },
+  { name: 'Miete', id: 4, category: 'Wohnen' },
+  { name: 'Strom', id: 5, category: 'Wohnen' },
+  { name: 'Zahnzusatzversicherung', id: 5, category: 'Finanzen' },
 ];
+
+function prepareData( envelopeRows ) {
+    const dataBlob = {
+        sections: {},
+        rows: []
+    };
+    const rowSectionMap = new Map();
+
+    for ( let rowId = 0; rowId < envelopeRows.length; rowId++ ) {
+        const sectionId = envelopeRows[rowId].category.toLowerCase().replace(/[^a-z]/, '_');
+
+        if ( rowSectionMap.has( sectionId ) ) {
+            rowSectionMap.get( sectionId ).push( rowId )
+        } else {
+            rowSectionMap.set( sectionId, [ rowId ] )
+        }
+        dataBlob.sections[sectionId] = { name: envelopeRows[rowId].category }
+        dataBlob.rows[rowId] = envelopeRows[rowId]
+    }
+    return { dataBlob, sectionIds: Array.from(rowSectionMap.keys()), rowIds: Array.from(rowSectionMap.values()) }
+
+}
 
 class EnvelopeSelectScreen extends Component {
   constructor(props) {
     super(props)
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2})
+    var ds = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 != r2,
+        sectionHeaderHasChanged : (s1, s2) => s1 !== s2,
+        getSectionHeaderData: (dataBlob, sectionId) => dataBlob.sections[sectionId],
+        getRowData: (dataBlob, sectionId, rowId) => dataBlob.rows[rowId],
+    })
+    const { dataBlob, sectionIds, rowIds } = prepareData( dummyEnvelopes );
     this.state = {
-      envelopesDataSource: ds.cloneWithRows( dummyEnvelopes )
+      envelopesDataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
     }
   }
 
@@ -36,6 +67,7 @@ class EnvelopeSelectScreen extends Component {
             dataSource={ this.state.envelopesDataSource }
             renderRow={ this._renderEnvelopeRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
+            renderSectionHeader={ this._renderSectionHeader }
           />
         </List>
       </View>
@@ -50,6 +82,14 @@ class EnvelopeSelectScreen extends Component {
           <View><Text>{envelope.name}</Text></View>
       </TouchableHighlight>
     )
+  }
+
+  _renderSectionHeader( section ) {
+      return (
+          <View style={ styles.rowHeader }>
+              <Text style={ styles.rowHeaderText}>{section.name}</Text>
+          </View>
+      )
   }
 
   _renderSeparator( sectionId, rowId, adjacentRowHighlighted ) {
@@ -77,7 +117,20 @@ const styles = StyleSheet.create({
 
 rowItem: {
   padding: 10,
-  backgroundColor: 'white'
+  backgroundColor: 'white',
+  paddingLeft: 15
+},
+
+rowHeader: {
+  backgroundColor: '#3366ed',
+  paddingTop: 3,
+  paddingBottom: 3,
+  paddingLeft: 5
+},
+
+rowHeaderText: {
+    fontWeight: 'bold',
+    color: 'white'
 },
 
 rowSeparator: {
