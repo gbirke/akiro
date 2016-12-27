@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ListView, StatusBar, Navigator, StyleSheet } from 'react-native';
+import { View, ListView, StatusBar, StyleSheet } from 'react-native';
 import { List } from 'react-native-elements'
 
 import ExpenseListItem from '../components/ExpenseListItem';

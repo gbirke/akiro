@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, StatusBar, Navigator, StyleSheet, TextInput, DatePickerIOS, Button, TouchableHighlight } from 'react-native';
+import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS, Button, TouchableHighlight } from 'react-native';
 import { Icon, Text } from 'react-native-elements'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
@@ -13,7 +13,7 @@ class ExpenseEntryScreen extends Component {
   };
 
   state = {
-    envelope:{ id: 0, name: ''},
+    envelope: { id: 0, name: ''},
     date: this.props.date,
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
   };
@@ -27,7 +27,6 @@ class ExpenseEntryScreen extends Component {
   }
 
   onEnvelopeSelected( envelope ) {
-      console.log("got envelope from subscreen", envelope)
       this.setState( { envelope: envelope } );
   }
 
@@ -47,8 +46,7 @@ class ExpenseEntryScreen extends Component {
                 <TextInput
                     style={[styles.amountInput, styles.container]}
                     keyboardType={'decimal-pad'}
-                    selectTextOnFocus={true}
-                    value="0,00"
+                    value="0.00"
                 />
                 <View style={[styles.wrapper, styles.container]}>
                     <Text>Payee placeholder</Text>

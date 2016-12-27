@@ -5,6 +5,7 @@ import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react
 import { List, Text } from 'react-native-elements'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
+import SelectListElement from '../components/SelectListElement'
 
 const dummyEnvelopes = [
   { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
@@ -76,11 +77,11 @@ class EnvelopeSelectScreen extends Component {
 
   _renderEnvelopeRow( envelope ) {
     return (
-        <TouchableHighlight
-          onPress={ () => { this._onSelectEnvelope( envelope ) } }
-          style={styles.rowItem}>
-          <View><Text>{envelope.name}</Text></View>
-      </TouchableHighlight>
+        <SelectListElement
+          onSelect={ () => { this._onSelectEnvelope( envelope ) } }
+          text={envelope.name}
+          indent={15}
+      />
     )
   }
 
@@ -113,12 +114,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch"
-},
-
-rowItem: {
-  padding: 10,
-  backgroundColor: 'white',
-  paddingLeft: 15
 },
 
 rowHeader: {
