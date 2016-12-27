@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, StatusBar, Navigator, StyleSheet, TextInput, DatePickerIOS, Button } from 'react-native';
+import { View, ScrollView, StatusBar, Navigator, StyleSheet, TextInput, DatePickerIOS, Button, TouchableHighlight } from 'react-native';
 import { Icon, Text } from 'react-native-elements'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
@@ -13,6 +13,7 @@ class ExpenseEntryScreen extends Component {
   };
 
   state = {
+    envelope:{ id: 0, name: ''},
     date: this.props.date,
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
   };
@@ -25,6 +26,17 @@ class ExpenseEntryScreen extends Component {
       // TODO
   }
 
+  onEnvelopeSelected( envelope ) {
+      console.log("got envelope from subscreen", envelope)
+      this.setState( { envelope: envelope } );
+  }
+
+  _onSelectEnvelope() {
+      this.props.navigator.push({
+          name: "SelectEnvelope",
+          callback: this.onEnvelopeSelected.bind(this)
+      })
+  }
 
     render() {
         return (
@@ -47,15 +59,19 @@ class ExpenseEntryScreen extends Component {
                         />
                     </View>
                 </View>
-                <View style={[styles.wrapper, styles.container]}>
-                    <Text>Envelope placeholder</Text>
-                    <View style={styles.chevronContainer}>
-                      <Icon
-                        size={28}
-                        name={"chevron-right"}
-                        />
+                <TouchableHighlight
+                  onPress={this._onSelectEnvelope.bind(this)}
+                  style={styles.container}>
+                    <View style={[styles.wrapper]}>
+                        <Text>Envelope placeholder</Text>
+                        <View style={styles.chevronContainer}>
+                          <Icon
+                            size={28}
+                            name={"chevron-right"}
+                            />
+                        </View>
                     </View>
-                </View>
+                </TouchableHighlight>
                 <View style={[styles.wrapper, styles.container]}>
                     <Text>Account placeholder</Text>
                     <View style={styles.chevronContainer}>
@@ -80,7 +96,10 @@ class ExpenseEntryScreen extends Component {
             </View>
         )
     }
+
 }
+
+
 
 
 const styles = StyleSheet.create({
