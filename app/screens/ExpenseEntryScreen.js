@@ -1,11 +1,10 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS, Button, TouchableHighlight } from 'react-native';
-import { Icon, Text } from 'react-native-elements'
-import colors from 'react-native-elements/src/config/colors'
+import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS, Button } from 'react-native';
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
+import ListSelector from '../components/ListSelector';
 
 class ExpenseEntryScreen extends Component {
     static defaultProps = {
@@ -24,6 +23,7 @@ class ExpenseEntryScreen extends Component {
   };
 
   onPressSave() {
+      console.log("saving is not implemented", this.state);
       // TODO
   }
 
@@ -39,8 +39,6 @@ class ExpenseEntryScreen extends Component {
   }
 
     render() {
-        const envelopeSelected = this.state.envelope.id > 0;
-        const envelopeText = envelopeSelected ? this.state.envelope.name : 'Select envelope';
         return (
             <View style={ styles.expenseEntry }>
               <StatusBar />
@@ -51,37 +49,22 @@ class ExpenseEntryScreen extends Component {
                     keyboardType={'decimal-pad'}
                     value="0.00"
                 />
-                <View style={[styles.wrapper, styles.container]}>
-                    <Text style={styles.placeholderItemText}>Payee placeholder</Text>
-                    <View style={styles.chevronContainer}>
-                      <Icon
-                        size={28}
-                        name={"chevron-right"}
-                        />
-                    </View>
-                </View>
-                <TouchableHighlight
-                  onPress={this._onSelectEnvelope.bind(this)}
-                  style={styles.container}>
-                    <View style={[styles.wrapper]}>
-                        <Text style={ envelopeSelected ? styles.selectedItemText : styles.placeholderItemText }>{envelopeText}</Text>
-                        <View style={styles.chevronContainer}>
-                          <Icon
-                            size={28}
-                            name={"chevron-right"}
-                            />
-                        </View>
-                    </View>
-                </TouchableHighlight>
-                <View style={[styles.wrapper, styles.container]}>
-                    <Text style={styles.placeholderItemText}>Account placeholder</Text>
-                    <View style={styles.chevronContainer}>
-                      <Icon
-                        size={28}
-                        name={"chevron-right"}
-                        />
-                    </View>
-                </View>
+                <ListSelector
+                    onPress={ () => { console.log( 'payee selection not implemented' ) } }
+                    itemSelected={false}
+                    placeholderText={ 'Select Payee' }
+                />
+                <ListSelector
+                  onPress={ this._onSelectEnvelope.bind(this) }
+                  itemSelected={ this.state.envelope.id > 0 }
+                  text={ this.state.envelope.name }
+                  placeholderText={ 'Select envelope' }
+               />
+               <ListSelector
+                   onPress={ () => { console.log( 'account selection not implemented' ) } }
+                   itemSelected={false}
+                   placeholderText={ 'Select Account' }
+               />
                 <TextInput
                     placeholder="Memo"
                     style={[styles.memoInput, styles.container]}
@@ -105,10 +88,6 @@ class ExpenseEntryScreen extends Component {
 
 const styles = StyleSheet.create({
 
-  wrapper: {
-      flexDirection: 'row',
-  },
-
   container: {
     padding: 10,
     borderBottomColor: '#ededed',
@@ -129,21 +108,6 @@ const styles = StyleSheet.create({
   memoInput: {
       height: 150
   },
-
-  selectedItemText: {
-      flex: 1
-  },
-
-  placeholderItemText: {
-      color: colors.grey2,
-      fontStyle: 'italic',
-      flex: 1
-  },
-
-  chevronContainer: {
-    alignItems: 'flex-end',
-    justifyContent: 'center'
-  }
 
 })
 

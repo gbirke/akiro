@@ -9,6 +9,7 @@ class SelectListElement extends Component {
         return (
             <TouchableHighlight
               onPress={ this.props.onSelect }
+              underlayColor={ 'white' }
               style={[ styles.container, { paddingLeft: this.props.indent } ] }>
               <View>
                   <Text>{this.props.text}</Text>
