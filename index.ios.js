@@ -13,6 +13,7 @@ import {
 
 import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import EnvelopeSelectScreen from './app/screens/EnvelopeSelectScreen';
+import PayeeSelectScreen from './app/screens/PayeeSelectScreen';
 
 import { FormattedWrapper } from 'react-native-globalize';
 
@@ -30,6 +31,11 @@ export default class Akiro extends Component {
             )
         case "SelectEnvelope":
             return (<EnvelopeSelectScreen
+                onSelect={ route.callback }
+                {...globalNavigatorProps}
+            />)
+        case "SelectPayee":
+            return ( <PayeeSelectScreen
                 onSelect={ route.callback }
                 {...globalNavigatorProps}
             />)

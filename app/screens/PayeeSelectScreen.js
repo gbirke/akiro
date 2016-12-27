@@ -7,38 +7,45 @@ import { List, Text } from 'react-native-elements'
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
 
-const dummyEnvelopes = [
-  { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
-  { name: 'Supermarkt', id: 2, category: 'Allgemeine Ausgaben' },
-  { name: 'Naturkost', id: 3, category: 'Allgemeine Ausgaben' },
-  { name: 'Miete', id: 4, category: 'Wohnen' },
-  { name: 'Strom', id: 5, category: 'Wohnen' },
-  { name: 'Zahnzusatzversicherung', id: 6, category: 'Finanzen' },
+const dummyPayees = [
+  { name: 'Restaurant', id: 1 },
+  { name: 'Edeka', id: 2 },
+  { name: 'Biosphäre', id: 3 },
+  { name: 'Vermieter', id: 4 },
+  { name: 'Stadtwerke', id: 5 },
+  { name: 'Krankenkasse', id: 6 },
+  { name: 'Rudi\'s Resterampe', id: 7 }
 ];
 
-function prepareData( envelopeRows ) {
+function compareSectionKeys( sectionA, sectionB ) {
+    // TODO: special cases for geolocated "around you" section
+    return sectionA[0].localeCompare( sectionB[0] );
+}
+
+function prepareData( payeeRows ) {
     const dataBlob = {
         sections: {},
         rows: []
     };
     const rowSectionMap = new Map();
 
-    for ( let rowId = 0; rowId < envelopeRows.length; rowId++ ) {
-        const sectionId = envelopeRows[rowId].category.toLowerCase().replace(/[^a-z]/, '_');
+    for ( let rowId = 0; rowId < payeeRows.length; rowId++ ) {
+        const sectionId = payeeRows[rowId].name.substr( 0, 1 );
 
         if ( rowSectionMap.has( sectionId ) ) {
             rowSectionMap.get( sectionId ).push( rowId )
         } else {
             rowSectionMap.set( sectionId, [ rowId ] )
         }
-        dataBlob.sections[sectionId] = { name: envelopeRows[rowId].category }
-        dataBlob.rows[rowId] = envelopeRows[rowId]
+        dataBlob.sections[sectionId] = { name: sectionId }
+        dataBlob.rows[rowId] = payeeRows[rowId]
     }
-    return { dataBlob, sectionIds: Array.from(rowSectionMap.keys()), rowIds: Array.from(rowSectionMap.values()) }
+    const sortedSectionMap = new Map( [...rowSectionMap.entries()].sort( compareSectionKeys ) )
+    return { dataBlob, sectionIds: Array.from(sortedSectionMap.keys()), rowIds: Array.from(sortedSectionMap.values()) }
 
 }
 
-class EnvelopeSelectScreen extends Component {
+class PayeeSelectScreen extends Component {
   constructor(props) {
     super(props)
     var ds = new ListView.DataSource({
@@ -47,13 +54,13 @@ class EnvelopeSelectScreen extends Component {
         getSectionHeaderData: (dataBlob, sectionId) => dataBlob.sections[sectionId],
         getRowData: (dataBlob, sectionId, rowId) => dataBlob.rows[rowId],
     })
-    const { dataBlob, sectionIds, rowIds } = prepareData( dummyEnvelopes );
+    const { dataBlob, sectionIds, rowIds } = prepareData( dummyPayees );
     this.state = {
-      envelopesDataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
+      payeesDataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
     }
   }
 
-  _onSelectEnvelope( envelope ) {
+  _onSelectPayee( envelope ) {
       this.props.onSelect( envelope );
       this.props.navigator.pop();
   }
@@ -65,8 +72,8 @@ class EnvelopeSelectScreen extends Component {
         <PhoneStatusBar />
         <List>
           <ListView
-            dataSource={ this.state.envelopesDataSource }
-            renderRow={ this._renderEnvelopeRow.bind( this ) }
+            dataSource={ this.state.payeesDataSource }
+            renderRow={ this._renderPayeeRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
             renderSectionHeader={ this._renderSectionHeader }
           />
@@ -75,12 +82,12 @@ class EnvelopeSelectScreen extends Component {
     )
   }
 
-  _renderEnvelopeRow( envelope ) {
+  _renderPayeeRow( payee ) {
     return (
         <SelectListElement
-          onSelect={ () => { this._onSelectEnvelope( envelope ) } }
-          text={envelope.name}
-          indent={15}
+          onSelect={ () => { this._onSelectPayee( payee ) } }
+          text={payee.name}
+          indent={5}
       />
     )
   }
@@ -99,11 +106,11 @@ class EnvelopeSelectScreen extends Component {
 
 }
 
-EnvelopeSelectScreen.defaultProps = {
+PayeeSelectScreen.defaultProps = {
   onSelect: () => { console.log("No selection callback specified!") }
 }
 
-EnvelopeSelectScreen.propTypes = {
+PayeeSelectScreen.propTypes = {
   onSelect: PropTypes.func
 }
 
@@ -135,4 +142,4 @@ rowSeparator: {
 
 })
 
-module.exports = EnvelopeSelectScreen
+module.exports = PayeeSelectScreen

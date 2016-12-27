@@ -14,6 +14,7 @@ class ExpenseEntryScreen extends Component {
 
   state = {
     envelope: { id: 0, name: ''},
+    payee: { id: 0, name: ''},
     date: this.props.date,
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
   };
@@ -27,14 +28,30 @@ class ExpenseEntryScreen extends Component {
       // TODO
   }
 
+  /* Event handlers for selections in ListSelector  */
+
   onEnvelopeSelected( envelope ) {
-      this.setState( { envelope: envelope } );
+      this.setState( { envelope } );
   }
+
+  onPayeeSelected( payee ) {
+      // TODO: Check if payee has history and get envelope and account from history
+      this.setState( { payee } );
+  }
+
+  /* Event handlers for ListSelector presses */
 
   _onSelectEnvelope() {
       this.props.navigator.push({
           name: "SelectEnvelope",
           callback: this.onEnvelopeSelected.bind(this)
+      })
+  }
+
+  _onSelectPayee() {
+      this.props.navigator.push({
+          name: "SelectPayee",
+          callback: this.onPayeeSelected.bind(this)
       })
   }
 
@@ -50,8 +67,9 @@ class ExpenseEntryScreen extends Component {
                     value="0.00"
                 />
                 <ListSelector
-                    onPress={ () => { console.log( 'payee selection not implemented' ) } }
-                    itemSelected={false}
+                    onPress={ this._onSelectPayee.bind(this) }
+                    itemSelected={ this.state.payee.id > 0}
+                    text={ this.state.payee.name }
                     placeholderText={ 'Select Payee' }
                 />
                 <ListSelector
