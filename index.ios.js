@@ -12,14 +12,14 @@ import {
   View
 } from 'react-native';
 
-import ExpensesListScreen from './app/screens/ExpensesListScreen';
+import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import { FormattedWrapper } from 'react-native-globalize';
 
 export default class Akiro extends Component {
   render() {
     return (
         <FormattedWrapper locale="de" currency="EUR">
-          <ExpensesListScreen />
+          <ExpenseEntryScreen />
         </FormattedWrapper>
     );
   }
