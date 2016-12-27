@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS, Button, TouchableHighlight } from 'react-native';
 import { Icon, Text } from 'react-native-elements'
+import colors from 'react-native-elements/src/config/colors'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 
@@ -38,6 +39,8 @@ class ExpenseEntryScreen extends Component {
   }
 
     render() {
+        const envelopeSelected = this.state.envelope.id > 0;
+        const envelopeText = envelopeSelected ? this.state.envelope.name : 'Select envelope';
         return (
             <View style={ styles.expenseEntry }>
               <StatusBar />
@@ -49,7 +52,7 @@ class ExpenseEntryScreen extends Component {
                     value="0.00"
                 />
                 <View style={[styles.wrapper, styles.container]}>
-                    <Text>Payee placeholder</Text>
+                    <Text style={styles.placeholderItemText}>Payee placeholder</Text>
                     <View style={styles.chevronContainer}>
                       <Icon
                         size={28}
@@ -61,7 +64,7 @@ class ExpenseEntryScreen extends Component {
                   onPress={this._onSelectEnvelope.bind(this)}
                   style={styles.container}>
                     <View style={[styles.wrapper]}>
-                        <Text>Envelope placeholder</Text>
+                        <Text style={ envelopeSelected ? styles.selectedItemText : styles.placeholderItemText }>{envelopeText}</Text>
                         <View style={styles.chevronContainer}>
                           <Icon
                             size={28}
@@ -71,7 +74,7 @@ class ExpenseEntryScreen extends Component {
                     </View>
                 </TouchableHighlight>
                 <View style={[styles.wrapper, styles.container]}>
-                    <Text>Account placeholder</Text>
+                    <Text style={styles.placeholderItemText}>Account placeholder</Text>
                     <View style={styles.chevronContainer}>
                       <Icon
                         size={28}
@@ -104,7 +107,6 @@ const styles = StyleSheet.create({
 
   wrapper: {
       flexDirection: 'row',
-      padding: 10
   },
 
   container: {
@@ -126,6 +128,16 @@ const styles = StyleSheet.create({
 
   memoInput: {
       height: 150
+  },
+
+  selectedItemText: {
+      flex: 1
+  },
+
+  placeholderItemText: {
+      color: colors.grey2,
+      fontStyle: 'italic',
+      flex: 1
   },
 
   chevronContainer: {
