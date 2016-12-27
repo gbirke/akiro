@@ -8,19 +8,32 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View
+  Navigator
 } from 'react-native';
 
 import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import { FormattedWrapper } from 'react-native-globalize';
 
 export default class Akiro extends Component {
+  _renderScene( route, navigator ) {
+      const globalNavigatorProps = { navigator }
+
+      switch( route.name ) {
+          case "ExpenseEntry":
+            // TODO remove FormattedWrapper, use getChildContext instead
+            return (
+                <FormattedWrapper locale="de" currency="EUR">
+                    <ExpenseEntryScreen {...globalNavigatorProps} />
+                </FormattedWrapper>
+        )
+      }
+  }
   render() {
     return (
-        <FormattedWrapper locale="de" currency="EUR">
-          <ExpenseEntryScreen />
-        </FormattedWrapper>
+        <Navigator
+            initialRoute={{ name: "ExpenseEntry" }}
+            renderScene={this._renderScene}
+        />    
     );
   }
 }
