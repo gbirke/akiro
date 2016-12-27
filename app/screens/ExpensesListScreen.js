@@ -5,6 +5,7 @@ import { View, ListView, StatusBar, Navigator, StyleSheet } from 'react-native';
 import { List } from 'react-native-elements'
 
 import ExpenseListItem from '../components/ExpenseListItem';
+import PhoneStatusBar from '../components/PhoneStatusBar';
 
 const dummyExpenses = [
   { date: '2016-10-24', amount: 500, payee: { name: 'Imbiss' }, account: { 'name': 'Bargeld' }, envelope: { name: 'Auswärts essen' } },
@@ -25,7 +26,7 @@ class ExpensesListScreen extends Component {
     return (
       <View style={ styles.expenseList }>
         <StatusBar />
-        <View style={ styles.statusBarBackground } />
+        <PhoneStatusBar />
         <List>
           <ListView
             dataSource={ this.state.expensesDataSource }
@@ -50,10 +51,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch"
-  },
-
-  statusBarBackground: {
-    height: 20,
   }
 
 })

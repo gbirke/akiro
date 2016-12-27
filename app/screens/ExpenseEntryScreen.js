@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { View, ScrollView, StatusBar, Navigator, StyleSheet, TextInput, DatePickerIOS, Button } from 'react-native';
 import { Icon, Text } from 'react-native-elements'
 
+import PhoneStatusBar from '../components/PhoneStatusBar';
+
 class ExpenseEntryScreen extends Component {
     static defaultProps = {
     date: new Date(),
@@ -28,7 +30,7 @@ class ExpenseEntryScreen extends Component {
         return (
             <View style={ styles.expenseEntry }>
               <StatusBar />
-              <View style={ styles.statusBarBackground } />
+              <PhoneStatusBar />
               <ScrollView>
                 <TextInput
                     style={[styles.amountInput, styles.container]}
@@ -107,10 +109,6 @@ const styles = StyleSheet.create({
 
   memoInput: {
       height: 150
-  },
-
-  statusBarBackground: {
-    height: 20,
   },
 
   chevronContainer: {
