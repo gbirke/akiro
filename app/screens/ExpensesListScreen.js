@@ -9,9 +9,9 @@ import PhoneStatusBar from '../components/PhoneStatusBar';
 import colors from '../config/colors'
 
 const dummyExpenses = [
-  { date: '2016-10-24', amount: 500, payee: { name: 'Imbiss' }, account: { 'name': 'Bargeld' }, envelope: { name: 'Auswärts essen' } },
-  { date: '2016-10-22', amount: 1000, payee: { name: 'Restaurant' }, account: { 'name': 'Bargeld' }, envelope: { name: 'Auswärts essen' } },
-  { date: '2016-10-22', amount: 1297, payee: { name: 'Penny' }, account: { 'name': 'Bargeld' }, envelope: { name: 'Supermarkt' } },
+  { date: new Date('2016-10-24'), amount: '5.00', payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
+  { date: new Date('2016-10-22'), amount: '10.00', payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
+  { date: new Date('2016-10-22'), amount: '12.97', payee: { name: 'Edeka', id: 2 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Supermarkt', id: 2 } },
 ];
 
 class ExpensesListScreen extends Component {
@@ -30,6 +30,14 @@ class ExpensesListScreen extends Component {
       })
   }
 
+  _onSelectExpense( expense ) {
+      this.props.navigator.push({
+          name: "EnterExpense",
+          leftButton: "Back",
+          expense: expense
+      })
+  }
+
   render() {
     return (
       <View style={ styles.expenseList }>
@@ -38,7 +46,7 @@ class ExpensesListScreen extends Component {
         <List>
           <ListView
             dataSource={ this.state.expensesDataSource }
-            renderRow={ this._renderExpenseRow }
+            renderRow={ this._renderExpenseRow.bind(this) }
           />
         </List>
         <View style={styles.addEntryContainer}>
@@ -53,8 +61,12 @@ class ExpensesListScreen extends Component {
   }
 
   _renderExpenseRow( expense ) {
+    //const selectExpenseHandler = this._onSelectExpense.bind(this);
     return (
-      <ExpenseListItem expense={expense} onPress={(evt) => console.log(evt, expense)} />
+      <ExpenseListItem
+          expense={ expense }
+          onPress={ () => { this._onSelectExpense( expense ) } }
+      />
     )
   }
 

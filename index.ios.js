@@ -62,7 +62,9 @@ export default class Akiro extends Component {
             // TODO remove FormattedWrapper, use getChildContext instead
             return (
                 <FormattedWrapper locale="de" currency="EUR">
-                    <ExpenseEntryScreen {...globalNavigatorProps} />
+                    <ExpenseEntryScreen
+                        expense={route.expense}
+                        {...globalNavigatorProps} />
                 </FormattedWrapper>
             )
         case "SelectEnvelope":

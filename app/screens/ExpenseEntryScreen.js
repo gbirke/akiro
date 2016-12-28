@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS } from 'react-native';
 import { Button } from 'react-native-elements'
 
@@ -13,20 +13,27 @@ const NULL_PAYEE  = { id: 0, name: '' };
 const NULL_ACCOUNT = { id: 0, name: '' };
 
 class ExpenseEntryScreen extends Component {
-    static defaultProps = {
-    date: new Date(),
-    timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+  static defaultProps = {
+    date: new Date()
   };
 
-  state = {
-    amount: '',
-    envelope: NULL_ENVELOPE,
-    payee: NULL_PAYEE,
-    account: NULL_ACCOUNT,
-    date: this.props.date,
-    memo: '',
-    timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
-  };
+  constructor(props) {
+    super(props)
+    if ( this.props.expense ) {
+        this.state = this.props.expense
+    } else {
+        this.state = {
+          amount: '',
+          envelope: NULL_ENVELOPE,
+          payee: NULL_PAYEE,
+          account: NULL_ACCOUNT,
+          date: this.props.date,
+          memo: ''
+        }
+    }
+  }
+
+
 
   onDateChange = (date) => {
     this.setState({date: date});
@@ -35,7 +42,7 @@ class ExpenseEntryScreen extends Component {
   onPressSave() {
       // TODO validate amount > 0 and account id not 0
       console.log("saving is not implemented", this.state);
-      // TODO Save state in DB
+      // TODO Save state in DB, checking if this.props.expense is set to detrmine if insert/update should be called.
       this.props.navigator.pop();
   }
 
@@ -154,6 +161,9 @@ class ExpenseEntryScreen extends Component {
 
 }
 
+ExpenseEntryScreen.propTypes = {
+    expense: PropTypes.object
+}
 
 const styles = StyleSheet.create({
 

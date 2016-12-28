@@ -30,7 +30,7 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 - [x] Checkmark for selected items in selection lists
 - [x] Back button for select lists (to cancel)
 - [x] Selecting existing item removes selection
-- [ ] Edit expense
+- [x] Edit expense
 
 ### 0.2 Storage and export
 - [ ] Create DB-structure and integrate sqlite (https://github.com/andpor/react-native-sqlite-storage)
