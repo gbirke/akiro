@@ -28,7 +28,7 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
   - [x] Date ( current date )
   - [x] Save button
 - [x] Checkmark for selected items in selection lists
-- [ ] Back button for select lists (to cancel)
+- [x] Back button for select lists (to cancel)
 - [x] Selecting existing item removes selection
 
 ### 0.2 Storage and export

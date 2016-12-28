@@ -8,15 +8,40 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Navigator
+  Navigator,
+  Text,
+  TouchableHighlight
 } from 'react-native';
+import { FormattedWrapper } from 'react-native-globalize';
 
 import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import EnvelopeSelectScreen from './app/screens/EnvelopeSelectScreen';
 import PayeeSelectScreen from './app/screens/PayeeSelectScreen';
 import AccountSelectScreen from './app/screens/AccountSelectScreen';
 
-import { FormattedWrapper } from 'react-native-globalize';
+const NavigationBarRouteMapper = {
+  LeftButton: function( route, navigator, index, navState ){
+    if (route.index === 0) {
+      return null;
+    } else {
+      return (
+        <TouchableHighlight onPress={() => navigator.pop()} style={{paddingLeft:8}}>
+          <Text>{ route.leftButton }</Text>
+        </TouchableHighlight>
+      );
+    }
+  },
+  Title: function( route, navigator, index, navState ){
+    return(
+      <Text>{ route.title }</Text>
+    )
+  },
+  RightButton: function( route, navigator, index, navState ){
+    return(
+      <Text>{ route.rightButton }</Text>
+    )
+  }
+}
 
 export default class Akiro extends Component {
   _renderScene( route, navigator ) {
@@ -40,6 +65,8 @@ export default class Akiro extends Component {
             return ( <PayeeSelectScreen
                 onSelect={ route.callback }
                 selectedId={ route.selectedId }
+                title={"Select Payee"}
+                leftButton={"Back"}
                 {...globalNavigatorProps}
             />)
         case "SelectAccount":
@@ -55,6 +82,12 @@ export default class Akiro extends Component {
         <Navigator
             initialRoute={{ name: "ExpenseEntry" }}
             renderScene={this._renderScene}
+            navigationBar={
+              <Navigator.NavigationBar
+                routeMapper={ NavigationBarRouteMapper }
+                style={{backgroundColor:'#3399ff', height:40}}
+              />
+            }
         />
     );
   }

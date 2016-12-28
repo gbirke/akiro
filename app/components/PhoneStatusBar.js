@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 /**
- * An empty view to make room for the iOS status bar
+ * An empty view to make room for the iOS status bar and nav bar
  */
 class PhoneStatusBar extends Component {
     render() {
@@ -15,7 +15,8 @@ class PhoneStatusBar extends Component {
 const styles = StyleSheet.create({
 
   statusBarBackground: {
-    height: 20,
+    /* TODO make this platorm-specific and dependent on navigation bar height */
+    height: 40,
   }
 
 })

@@ -68,7 +68,9 @@ class ExpenseEntryScreen extends Component {
       this.props.navigator.push({
           name: "SelectEnvelope",
           callback: this.onEnvelopeSelected.bind(this),
-          selectedId: this.state.envelope.id
+          selectedId: this.state.envelope.id,
+          title: "Select Payee",
+          leftButton: "Back"
       })
   }
 
@@ -76,7 +78,9 @@ class ExpenseEntryScreen extends Component {
       this.props.navigator.push({
           name: "SelectPayee",
           callback: this.onPayeeSelected.bind(this),
-          selectedId: this.state.payee.id
+          selectedId: this.state.payee.id,
+          title: "Select Payee",
+          leftButton: "Back"
       })
   }
 
@@ -84,7 +88,9 @@ class ExpenseEntryScreen extends Component {
       this.props.navigator.push({
           name: "SelectAccount",
           callback: this.onAccountSelected.bind(this),
-          selectedId: this.state.account.id
+          selectedId: this.state.account.id,
+          title: "Select Payee",
+          leftButton: "Back"
       })
   }
 
