@@ -2,7 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
-import { List, Text } from 'react-native-elements'
+import { List, Text, SearchBar } from 'react-native-elements'
+import colors from 'react-native-elements/src/config/colors'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
@@ -48,15 +49,20 @@ function prepareData( payeeRows ) {
 class PayeeSelectScreen extends Component {
   constructor(props) {
     super(props)
-    var ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 != r2,
-        sectionHeaderHasChanged : (s1, s2) => s1 !== s2,
-        getSectionHeaderData: (dataBlob, sectionId) => dataBlob.sections[sectionId],
-        getRowData: (dataBlob, sectionId, rowId) => dataBlob.rows[rowId],
-    })
+    const allPayees = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 != r2,
+            sectionHeaderHasChanged : (s1, s2) => s1 !== s2,
+            getSectionHeaderData: (dataBlob, sectionId) => dataBlob.sections[sectionId],
+            getRowData: (dataBlob, sectionId, rowId) => dataBlob.rows[rowId],
+        }),
+        filteredPayees = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 != r2
+        });
     const { dataBlob, sectionIds, rowIds } = prepareData( dummyPayees );
     this.state = {
-      payeesDataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
+      payeesDataSource: allPayees.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
+      searchDataSource: filteredPayees.cloneWithRows( dummyPayees ),
+      searchText: ''
     }
   }
 
@@ -65,17 +71,35 @@ class PayeeSelectScreen extends Component {
       this.props.navigator.pop();
   }
 
+  _onSearch( searchText ) {
+      this.setState( { searchText } );
+      this._updateSearchDataSource( searchText );
+  }
+
+  _updateSearchDataSource( searchText ) {
+      const filteredData = dummyPayees.filter( (p) => { return p.name.indexOf( searchText ) > -1 } );
+      const filteredPayees = new ListView.DataSource({
+          rowHasChanged: (r1, r2) => r1 != r2
+      });
+      this.setState( { searchDataSource: filteredPayees.cloneWithRows( filteredData ) } );
+  }
+
   render() {
+    const dataSource = this.state.searchText ? this.state.searchDataSource : this.state.payeesDataSource;
     return (
       <View style={ styles.listContainer }>
         <StatusBar />
         <PhoneStatusBar />
+        <SearchBar
+            lightTheme
+            onChangeText={ this._onSearch.bind(this) }
+            placeholder='Find a Payee' />
         <List>
           <ListView
-            dataSource={ this.state.payeesDataSource }
+            dataSource={ dataSource }
             renderRow={ this._renderPayeeRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
-            renderSectionHeader={ this._renderSectionHeader }
+            renderSectionHeader={ this._renderSectionHeader.bind( this ) }
           />
         </List>
       </View>
@@ -93,6 +117,9 @@ class PayeeSelectScreen extends Component {
   }
 
   _renderSectionHeader( section ) {
+      if ( this.state.searchText ) {
+          return null;
+      }
       return (
           <View style={ styles.rowHeader }>
               <Text style={ styles.rowHeaderText}>{section.name}</Text>
@@ -124,15 +151,14 @@ const styles = StyleSheet.create({
 },
 
 rowHeader: {
-  backgroundColor: '#3366ed',
+  backgroundColor: colors.grey5,
   paddingTop: 3,
   paddingBottom: 3,
   paddingLeft: 5
 },
 
 rowHeaderText: {
-    fontWeight: 'bold',
-    color: 'white'
+    fontWeight: 'bold'
 },
 
 rowSeparator: {
