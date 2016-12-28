@@ -23,7 +23,7 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
     - [x] List Screen
     - [x] Search field for payee selection (hides section headers)
   - [x] Selection of envelopes (with dummy data)
-  - [ ] Selection of accounts (with dummy data)
+  - [x] Selection of accounts (with dummy data)
   - [x] Memo
   - [x] Date ( current date )
   - [x] Save button
