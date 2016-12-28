@@ -6,6 +6,10 @@ import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS, Butt
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import ListSelector from '../components/ListSelector';
 
+const NULL_ENVELOPE = { id: 0, name: '' };
+const NULL_PAYEE  = { id: 0, name: '' };
+const NULL_ACCOUNT = { id: 0, name: '' };
+
 class ExpenseEntryScreen extends Component {
     static defaultProps = {
     date: new Date(),
@@ -13,9 +17,9 @@ class ExpenseEntryScreen extends Component {
   };
 
   state = {
-    envelope: { id: 0, name: ''},
-    payee: { id: 0, name: ''},
-    account: { id: 0, name: ''},
+    envelope: NULL_ENVELOPE,
+    payee: NULL_PAYEE,
+    account: NULL_ACCOUNT,
     date: this.props.date,
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
   };
@@ -32,15 +36,27 @@ class ExpenseEntryScreen extends Component {
   /* Event handlers for selections in ListSelector  */
 
   onEnvelopeSelected( envelope ) {
+      if ( envelope.id === this.state.envelope.id ) {
+          this.setState( {envelope: NULL_ENVELOPE } );
+          return;
+      }
       this.setState( { envelope } );
   }
 
   onPayeeSelected( payee ) {
+      if ( payee.id === this.state.payee.id ) {
+          this.setState( {payee: NULL_PAYEE } );
+          return;
+      }
       // TODO: Select last envelope and account for this payee from transaction history, if possible
       this.setState( { payee } );
   }
 
   onAccountSelected( account ) {
+      if ( account.id === this.state.account.id ) {
+          this.setState( {account: NULL_ACCOUNT } );
+          return;
+      }
       this.setState( { account } );
   }
 
@@ -83,19 +99,19 @@ class ExpenseEntryScreen extends Component {
                 />
                 <ListSelector
                     onPress={ this._onSelectPayee.bind(this) }
-                    itemSelected={ this.state.payee.id > 0}
+                    itemSelected={ this.state.payee.id != NULL_PAYEE.id }
                     text={ this.state.payee.name }
                     placeholderText={ 'Select Payee' }
                 />
                 <ListSelector
                   onPress={ this._onSelectEnvelope.bind(this) }
-                  itemSelected={ this.state.envelope.id > 0 }
+                  itemSelected={ this.state.envelope.id != NULL_ENVELOPE.id }
                   text={ this.state.envelope.name }
                   placeholderText={ 'Select envelope' }
                />
                <ListSelector
                    onPress={ this._onSelectAccount.bind(this) }
-                   itemSelected={ this.state.account.id > 0 }
+                   itemSelected={ this.state.account.id != NULL_ACCOUNT.id }
                    text={ this.state.account.name }
                    placeholderText={ 'Select Account' }
                />
