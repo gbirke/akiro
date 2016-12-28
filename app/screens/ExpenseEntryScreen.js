@@ -17,6 +17,7 @@ class ExpenseEntryScreen extends Component {
   };
 
   state = {
+    amount: '',
     envelope: NULL_ENVELOPE,
     payee: NULL_PAYEE,
     account: NULL_ACCOUNT,
@@ -92,11 +93,17 @@ class ExpenseEntryScreen extends Component {
               <StatusBar />
               <PhoneStatusBar />
               <ScrollView>
-                <TextInput
-                    style={[styles.amountInput, styles.container]}
-                    keyboardType={'decimal-pad'}
-                    value="0.00"
-                />
+                <View style={ styles.container }>
+                    <TextInput
+                        style={[styles.amountInput]}
+                        keyboardType={'decimal-pad'}
+                        onChangeText={(amount) => this.setState({amount})}
+                        returnKeyType={'next'}
+                        value={this.state.amount}
+                        placeholder='0.00'
+                        placeholderTextColor={'#ebebeb'}
+                    />
+                </View>
                 <ListSelector
                     onPress={ this._onSelectPayee.bind(this) }
                     itemSelected={ this.state.payee.id != NULL_PAYEE.id }
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
   },
 
   amountInput: {
-
+      height:40
   },
 
   memoInput: {
