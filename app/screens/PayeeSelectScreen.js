@@ -93,13 +93,17 @@ class PayeeSelectScreen extends Component {
         <SearchBar
             lightTheme
             onChangeText={ this._onSearch.bind(this) }
-            placeholder='Find a Payee' />
+            placeholder={'Find a Payee'}
+            autoCapitalize={'none'}
+            clearButtonMode={'while-editing'}
+        />
         <List>
           <ListView
             dataSource={ dataSource }
             renderRow={ this._renderPayeeRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
             renderSectionHeader={ this._renderSectionHeader.bind( this ) }
+            enableEmptySections={true}
           />
         </List>
       </View>
