@@ -19,9 +19,9 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
   - [ ] Add "Add Expense" Button in Expense List and connect it to navigator
 - [ ] GUI prototype: Form for entering expenses
   - [x] Amount (Plain text field)
-  - [ ] Selection of payees (with dummy data)
+  - [x] Selection of payees (with dummy data)
     - [x] List Screen
-    - [ ] Search field for payee selection (hides section headers)
+    - [x] Search field for payee selection (hides section headers)
   - [x] Selection of envelopes (with dummy data)
   - [ ] Selection of accounts (with dummy data)
   - [x] Memo
@@ -40,6 +40,7 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 ### 0.3 Speed up data entry
 - [ ] Separate amount page screen, calculator style (Look ma, no keyboard)
 - [ ] Store last envelope and account of each payee, select them when payee is selected
+- [ ] Add "Cancel" button to search/entry fields in payee selection
 
 ### 0.4 Geolocation
 - [ ] Store geolocation of each payee, put payees in 1 km radius/rectangle in a "near you" section at the top of the list
@@ -47,31 +48,33 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 - [ ] Export geolocation in CSV
 
 ### 0.5 Export all the things!
-- [ ] CSV-Export for all database tables
-- [ ] Store CSV exports in Dropbox
-- [ ] iPhone: Store CSV in a location where it can be synced by iTunes (https://www.npmjs.com/package/react-native-create-new-file-ios)
+- [ ] CSV-Export and import for all database tables
+- [ ] Store CSV files in Dropbox
 
 ### 0.6 Configuration
 - [ ] displayed currency and locale
 - [ ] CSV export format
-- [ ] Geolocation on/off and radis
-
-### 0.7 CRUD for ancillary data
-- [ ] Add hamburger menu for editing
-- [ ] Payees
-  - [ ] CRUD
-  - Delete location data
-- [ ] Envelopes
-  - [ ] CRUD for Envelopes
-  - [ ] CRUD for Envelope Categories
-  - Move envelopes between categories
-- [ ] Accounts
+- [ ] Geolocation on/off and radius
 
 ### 1.0 Release
 - [ ] Icon
 - [ ] App store?
 - Design improvements
-  - [ ] List sections for each date in expense list
+  - [ ] Add section header for each date in expense list
+  - [ ] Show memo and account name in expense list
+
+### 1.1 CRUD GUI for ancillary data
+Instead of importing CSV data, make the data editable in the app
+- [ ] Add hamburger menu for editing
+  - [ ] Payees
+    - [ ] CRUD
+    - Delete location data
+- [ ] Envelopes
+    - [ ] CRUD for Envelopes
+    - [ ] CRUD for Envelope Categories
+    - Move envelopes between categories
+- [ ] Accounts
+- [ ] Reset all data
 
 ### 2.0 The Future
 - [ ] Sync by logging all the changes
