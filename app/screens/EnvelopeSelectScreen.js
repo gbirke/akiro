@@ -3,19 +3,11 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
 import { List, Text } from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
 import colors from '../config/colors'
-
-const dummyEnvelopes = [
-  { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
-  { name: 'Supermarkt', id: 2, category: 'Allgemeine Ausgaben' },
-  { name: 'Naturkost', id: 3, category: 'Allgemeine Ausgaben' },
-  { name: 'Miete', id: 4, category: 'Wohnen' },
-  { name: 'Strom', id: 5, category: 'Wohnen' },
-  { name: 'Zahnzusatzversicherung', id: 6, category: 'Finanzen' },
-];
 
 function prepareData( envelopeRows ) {
     const dataBlob = {
@@ -48,10 +40,18 @@ class EnvelopeSelectScreen extends Component {
         getSectionHeaderData: (dataBlob, sectionId) => dataBlob.sections[sectionId],
         getRowData: (dataBlob, sectionId, rowId) => dataBlob.rows[rowId],
     })
-    const { dataBlob, sectionIds, rowIds } = prepareData( dummyEnvelopes );
+    const { dataBlob, sectionIds, rowIds } = prepareData( props.envelopes );
     this.state = {
       envelopesDataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
     }
+  }
+
+  componentWillReceiveProps( newProps ) {
+      if ( newProps.envelopes !== this.props.envelopes ) {
+          this.setState({
+            envelopesDataSource: this.state.envelopesDataSource.cloneWithRows(newProps.envelopes)
+          });
+      }
   }
 
   _onSelectEnvelope( envelope ) {
@@ -107,7 +107,8 @@ EnvelopeSelectScreen.defaultProps = {
 
 EnvelopeSelectScreen.propTypes = {
   onSelect: PropTypes.func,
-  selectedId: PropTypes.number
+  selectedId: PropTypes.number,
+  envelopes: PropTypes.array
 }
 
 
@@ -138,4 +139,10 @@ rowSeparator: {
 
 })
 
-module.exports = EnvelopeSelectScreen
+const mapStateToProps = (state) => {
+  return {
+    envelopes: state.envelopes
+  }
+}
+
+module.exports = connect(mapStateToProps)(EnvelopeSelectScreen)

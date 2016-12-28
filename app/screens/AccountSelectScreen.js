@@ -3,16 +3,10 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
 import { List, Text } from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
-
-const dummyAccounts = [
-  { name: 'Bargeld', id: 1 },
-  { name: 'Girokonto', id: 2 },
-  { name: 'Kreditkarte', id: 3 },
-  { name: 'Coinbase', id: 4 },
-];
 
 class AccountSelectScreen extends Component {
   constructor(props) {
@@ -21,8 +15,16 @@ class AccountSelectScreen extends Component {
         rowHasChanged: (r1, r2) => r1 != r2
     })
     this.state = {
-      accountsDataSource: ds.cloneWithRows( dummyAccounts ),
+      accountsDataSource: ds.cloneWithRows( props.accounts ),
     }
+  }
+
+  componentWillReceiveProps( newProps ) {
+      if ( newProps.accounts !== this.props.accounts ) {
+          this.setState({
+            accountsDataSource: this.state.accountsDataSource.cloneWithRows(newProps.accounts)
+          });
+      }
   }
 
   _onSelectAccount( envelope ) {
@@ -68,9 +70,9 @@ AccountSelectScreen.defaultProps = {
 
 AccountSelectScreen.propTypes = {
   onSelect: PropTypes.func,
-  selectedId: PropTypes.number
+  selectedId: PropTypes.number,
+  accounts: PropTypes.array
 }
-
 
 const styles = StyleSheet.create({
 
@@ -87,4 +89,10 @@ rowSeparator: {
 
 })
 
-module.exports = AccountSelectScreen
+const mapStateToProps = (state) => {
+  return {
+    accounts: state.accounts
+  }
+}
+
+module.exports = connect(mapStateToProps)(AccountSelectScreen)

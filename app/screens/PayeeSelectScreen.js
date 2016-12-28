@@ -3,20 +3,11 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
 import { List, Text, SearchBar } from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
 import colors from '../config/colors'
-
-const dummyPayees = [
-  { name: 'Restaurant', id: 1 },
-  { name: 'Edeka', id: 2 },
-  { name: 'Biosphäre', id: 3 },
-  { name: 'Vermieter', id: 4 },
-  { name: 'Stadtwerke', id: 5 },
-  { name: 'Krankenkasse', id: 6 },
-  { name: 'Rudi\'s Resterampe', id: 7 }
-];
 
 function compareSectionKeys( sectionA, sectionB ) {
     // TODO: special cases for geolocated "around you" section
@@ -58,12 +49,22 @@ class PayeeSelectScreen extends Component {
         filteredPayees = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 != r2
         });
-    const { dataBlob, sectionIds, rowIds } = prepareData( dummyPayees );
+    const { dataBlob, sectionIds, rowIds } = prepareData( props.payees );
     this.state = {
       payeesDataSource: allPayees.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
-      searchDataSource: filteredPayees.cloneWithRows( dummyPayees ),
+      searchDataSource: filteredPayees.cloneWithRows( props.payees ),
       searchText: ''
     }
+  }
+
+  componentWillReceiveProps( newProps ) {
+      if ( newProps.payees !== this.props.payees ) {
+          const { dataBlob, sectionIds, rowIds } = prepareData( newProps.payees );
+          this.setState({
+              payeesDataSource: this.state.payeesDataSource.cloneWithRowsAndSections( dataBlob, sectionIds, rowIds ),
+              searchDataSource: this.state.searchDataSource.cloneWithRows( newProps.payees ),
+          });
+      }
   }
 
   _onSelectPayee( envelope ) {
@@ -77,11 +78,9 @@ class PayeeSelectScreen extends Component {
   }
 
   _updateSearchDataSource( searchText ) {
-      const filteredData = dummyPayees.filter( (p) => { return p.name.indexOf( searchText ) > -1 } );
-      const filteredPayees = new ListView.DataSource({
-          rowHasChanged: (r1, r2) => r1 != r2
-      });
-      this.setState( { searchDataSource: filteredPayees.cloneWithRows( filteredData ) } );
+      // this _could_ probably be done better in the reducer
+      const filteredData = this.props.payees.filter( (p) => { return p.name.indexOf( searchText ) > -1 } );
+      this.setState( { searchDataSource: this.state.searchDataSource.cloneWithRows( filteredData ) } );
   }
 
   render() {
@@ -144,9 +143,9 @@ PayeeSelectScreen.defaultProps = {
 
 PayeeSelectScreen.propTypes = {
   onSelect: PropTypes.func,
-  selectedId: PropTypes.number
+  selectedId: PropTypes.number,
+  payees: PropTypes.array
 }
-
 
 const styles = StyleSheet.create({
 
@@ -175,4 +174,10 @@ rowSeparator: {
 
 })
 
-module.exports = PayeeSelectScreen
+const mapStateToProps = (state) => {
+  return {
+    payees: state.payees
+  }
+}
+
+module.exports = connect(mapStateToProps)(PayeeSelectScreen)
