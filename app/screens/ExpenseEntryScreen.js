@@ -36,7 +36,7 @@ class ExpenseEntryScreen extends Component {
 
 
   onDateChange = (date) => {
-    this.setState({date: date});
+    this.setState({date: date.toString()});
   };
 
   onPressSave() {
@@ -146,7 +146,7 @@ class ExpenseEntryScreen extends Component {
                     multiline={true}
                     style={[styles.memoInput, styles.container]}
                 />
-                <DatePickerIOS mode="date" date={this.state.date} onDateChange={this.onDateChange} />
+                <DatePickerIOS mode="date" date={new Date(this.state.date)} onDateChange={this.onDateChange} />
                 <Button
                   onPress={ this.onPressSave.bind(this) }
                   title="Save"

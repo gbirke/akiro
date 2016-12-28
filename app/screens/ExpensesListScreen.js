@@ -3,24 +3,37 @@
 import React, { Component } from 'react';
 import { View, ListView, StatusBar, StyleSheet } from 'react-native';
 import { List, Button } from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import ExpenseListItem from '../components/ExpenseListItem';
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import colors from '../config/colors'
 
-const dummyExpenses = [
-  { date: new Date('2016-10-24'), amount: '5.00', payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
-  { date: new Date('2016-10-22'), amount: '10.00', payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
-  { date: new Date('2016-10-22'), amount: '12.97', payee: { name: 'Edeka', id: 2 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Supermarkt', id: 2 } },
-];
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expenses
+  }
+}
 
 class ExpensesListScreen extends Component {
+    static defaultProps = {
+      expenses: []
+    };
+
   constructor(props) {
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2})
     this.state = {
-      expensesDataSource: ds.cloneWithRows( dummyExpenses )
+      expensesDataSource: ds.cloneWithRows( props.expenses )
     }
+  }
+
+  componentWillReceiveProps( newProps ) {
+      if ( newProps.expenses !== this.props.expenses ) {
+          this.setState({
+            expensesDataSource: this.state.expensesDataSource.cloneWithRows(newProps.expenses)
+          });
+      }
   }
 
   _onPressAdd() {
@@ -86,4 +99,4 @@ addEntryContainer: {
 
 })
 
-module.exports = ExpensesListScreen
+export default connect(mapStateToProps)(ExpensesListScreen)

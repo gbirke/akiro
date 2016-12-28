@@ -13,13 +13,18 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { FormattedWrapper } from 'react-native-globalize';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 import ExpensesListScreen from './app/screens/ExpensesListScreen'
 import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import EnvelopeSelectScreen from './app/screens/EnvelopeSelectScreen';
 import PayeeSelectScreen from './app/screens/PayeeSelectScreen';
 import AccountSelectScreen from './app/screens/AccountSelectScreen';
+
 import colors from './app/config/colors';
+
+import expenseTracker from './app/reducers/expenseTracker';
 
 const NavigationBarRouteMapper = {
   LeftButton: function( route, navigator, index, navState ){
@@ -45,6 +50,8 @@ const NavigationBarRouteMapper = {
     )
   }
 }
+
+let store = createStore(expenseTracker);
 
 export default class Akiro extends Component {
   _renderScene( route, navigator ) {
@@ -91,16 +98,19 @@ export default class Akiro extends Component {
   }
   render() {
     return (
-        <Navigator
-            initialRoute={{ name: "ListExpenses" }}
-            renderScene={this._renderScene}
-            navigationBar={
-              <Navigator.NavigationBar
-                routeMapper={ NavigationBarRouteMapper }
-                style={{backgroundColor:colors.lightShade, height:40}}
-              />
-            }
-        />
+        <Provider store={store}>
+            <Navigator
+                initialRoute={{ name: "ListExpenses" }}
+                renderScene={this._renderScene}
+                navigationBar={
+                  <Navigator.NavigationBar
+                    routeMapper={ NavigationBarRouteMapper }
+                    style={{backgroundColor:colors.lightShade, height:40}}
+                  />
+                }
+            />
+        </Provider>
+
     );
   }
 }
