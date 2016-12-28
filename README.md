@@ -13,11 +13,11 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 
 ## Next steps / Roadmap
 
-### 0.1 Prototype
+### 0.1 GUI Prototype
 - [x] GUI prototype: Expense list
   - [x] Screen
-  - [ ] Add "Add Expense" Button in Expense List and connect it to navigator
-- [ ] GUI prototype: Form for entering expenses
+  - [x] Add "Add Expense" Button in Expense List and connect it to navigator
+- [x] GUI prototype: Form for entering expenses
   - [x] Amount (Plain text field)
   - [x] Selection of payees (with dummy data)
     - [x] List Screen
@@ -30,6 +30,7 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 - [x] Checkmark for selected items in selection lists
 - [x] Back button for select lists (to cancel)
 - [x] Selecting existing item removes selection
+- [ ] Edit expense
 
 ### 0.2 Storage and export
 - [ ] Create DB-structure and integrate sqlite (https://github.com/andpor/react-native-sqlite-storage)
@@ -64,6 +65,8 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 - Design improvements
   - [ ] Add section header for each date in expense list
   - [ ] Show memo and account name in expense list
+  - [ ] Improve button design in nav bar - larger nav bar, more explicit buttons
+  - [ ] Improve alignment (left margin) of button and list elements in entry list and entry add screen
 
 ### 1.1 CRUD GUI for ancillary data
 Instead of importing CSV data, make the data editable in the app

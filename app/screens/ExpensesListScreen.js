@@ -2,10 +2,11 @@
 
 import React, { Component } from 'react';
 import { View, ListView, StatusBar, StyleSheet } from 'react-native';
-import { List } from 'react-native-elements'
+import { List, Button } from 'react-native-elements'
 
 import ExpenseListItem from '../components/ExpenseListItem';
 import PhoneStatusBar from '../components/PhoneStatusBar';
+import colors from '../config/colors'
 
 const dummyExpenses = [
   { date: '2016-10-24', amount: 500, payee: { name: 'Imbiss' }, account: { 'name': 'Bargeld' }, envelope: { name: 'Auswärts essen' } },
@@ -22,6 +23,13 @@ class ExpensesListScreen extends Component {
     }
   }
 
+  _onPressAdd() {
+      this.props.navigator.push({
+          name: "EnterExpense",
+          leftButton: "Back"
+      })
+  }
+
   render() {
     return (
       <View style={ styles.expenseList }>
@@ -33,6 +41,13 @@ class ExpensesListScreen extends Component {
             renderRow={ this._renderExpenseRow }
           />
         </List>
+        <View style={styles.addEntryContainer}>
+            <Button
+                onPress={ this._onPressAdd.bind(this) }
+                title="Add Entry"
+                backgroundColor={colors.action}
+            />
+        </View>
       </View>
     )
   }
@@ -50,8 +65,12 @@ const styles = StyleSheet.create({
   expenseList: {
     flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "stretch"
-  }
+    alignItems: "stretch",
+},
+
+addEntryContainer: {
+    marginTop: 5
+}
 
 })
 

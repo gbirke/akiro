@@ -1,10 +1,12 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS, Button } from 'react-native';
+import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS } from 'react-native';
+import { Button } from 'react-native-elements'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import ListSelector from '../components/ListSelector';
+import colors from '../config/colors'
 
 const NULL_ENVELOPE = { id: 0, name: '' };
 const NULL_PAYEE  = { id: 0, name: '' };
@@ -31,8 +33,10 @@ class ExpenseEntryScreen extends Component {
   };
 
   onPressSave() {
+      // TODO validate amount > 0 and account id not 0
       console.log("saving is not implemented", this.state);
-      // TODO
+      // TODO Save state in DB
+      this.props.navigator.pop();
   }
 
   /* Event handlers for selections in ListSelector  */
@@ -137,9 +141,11 @@ class ExpenseEntryScreen extends Component {
                 />
                 <DatePickerIOS mode="date" date={this.state.date} onDateChange={this.onDateChange} />
                 <Button
-                  onPress={this.onPressSave}
+                  onPress={ this.onPressSave.bind(this) }
                   title="Save"
+                  large
                   accessibilityLabel="Save the expense in database"
+                  backgroundColor={colors.action}
                 />
               </ScrollView>
             </View>
@@ -169,7 +175,7 @@ const styles = StyleSheet.create({
   },
 
   memoInput: {
-      height: 150
+      height: 120
   },
 
 })

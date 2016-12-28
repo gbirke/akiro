@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { FormattedWrapper } from 'react-native-globalize';
 
+import ExpensesListScreen from './app/screens/ExpensesListScreen'
 import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import EnvelopeSelectScreen from './app/screens/EnvelopeSelectScreen';
 import PayeeSelectScreen from './app/screens/PayeeSelectScreen';
@@ -23,6 +24,7 @@ import colors from './app/config/colors';
 const NavigationBarRouteMapper = {
   LeftButton: function( route, navigator, index, navState ){
     if (route.index === 0) {
+        // TODO Show Hamburger menu
       return null;
     } else {
       return (
@@ -49,7 +51,14 @@ export default class Akiro extends Component {
       const globalNavigatorProps = { navigator }
 
       switch( route.name ) {
-          case "ExpenseEntry":
+          case "ListExpenses":
+          // TODO remove FormattedWrapper, use getChildContext instead
+          return (
+              <FormattedWrapper locale="de" currency="EUR">
+                  <ExpensesListScreen {...globalNavigatorProps} />
+              </FormattedWrapper>
+          )
+          case "EnterExpense":
             // TODO remove FormattedWrapper, use getChildContext instead
             return (
                 <FormattedWrapper locale="de" currency="EUR">
@@ -81,7 +90,7 @@ export default class Akiro extends Component {
   render() {
     return (
         <Navigator
-            initialRoute={{ name: "ExpenseEntry" }}
+            initialRoute={{ name: "ListExpenses" }}
             renderScene={this._renderScene}
             navigationBar={
               <Navigator.NavigationBar
