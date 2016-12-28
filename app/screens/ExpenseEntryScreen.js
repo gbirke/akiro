@@ -22,6 +22,7 @@ class ExpenseEntryScreen extends Component {
     payee: NULL_PAYEE,
     account: NULL_ACCOUNT,
     date: this.props.date,
+    memo: '',
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
   };
 
@@ -101,7 +102,6 @@ class ExpenseEntryScreen extends Component {
                         returnKeyType={'next'}
                         value={this.state.amount}
                         placeholder='0.00'
-                        placeholderTextColor={'#ebebeb'}
                     />
                 </View>
                 <ListSelector
@@ -124,8 +124,10 @@ class ExpenseEntryScreen extends Component {
                />
                 <TextInput
                     placeholder="Memo"
-                    style={[styles.memoInput, styles.container]}
+                    onChangeText={(memo) => this.setState({memo})}
+                    value={this.state.memo}
                     multiline={true}
+                    style={[styles.memoInput, styles.container]}
                 />
                 <DatePickerIOS mode="date" date={this.state.date} onDateChange={this.onDateChange} />
                 <Button
@@ -139,8 +141,6 @@ class ExpenseEntryScreen extends Component {
     }
 
 }
-
-
 
 
 const styles = StyleSheet.create({
