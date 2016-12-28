@@ -3,10 +3,10 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
 import { List, Text, SearchBar } from 'react-native-elements'
-import colors from 'react-native-elements/src/config/colors'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
+import colors from '../config/colors'
 
 const dummyPayees = [
   { name: 'Restaurant', id: 1 },
@@ -157,14 +157,15 @@ const styles = StyleSheet.create({
 },
 
 rowHeader: {
-  backgroundColor: colors.grey5,
+  backgroundColor: colors.darkest,
   paddingTop: 3,
   paddingBottom: 3,
   paddingLeft: 5
 },
 
 rowHeaderText: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: colors.darkestContrast
 },
 
 rowSeparator: {

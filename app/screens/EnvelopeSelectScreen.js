@@ -6,6 +6,7 @@ import { List, Text } from 'react-native-elements'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
+import colors from '../config/colors'
 
 const dummyEnvelopes = [
   { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
 },
 
 rowHeader: {
-  backgroundColor: '#3366ed',
+  backgroundColor: colors.darkest,
   paddingTop: 3,
   paddingBottom: 3,
   paddingLeft: 5
@@ -127,7 +128,7 @@ rowHeader: {
 
 rowHeaderText: {
     fontWeight: 'bold',
-    color: 'white'
+    color: colors.darkestContrast
 },
 
 rowSeparator: {

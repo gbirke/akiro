@@ -18,6 +18,7 @@ import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
 import EnvelopeSelectScreen from './app/screens/EnvelopeSelectScreen';
 import PayeeSelectScreen from './app/screens/PayeeSelectScreen';
 import AccountSelectScreen from './app/screens/AccountSelectScreen';
+import colors from './app/config/colors';
 
 const NavigationBarRouteMapper = {
   LeftButton: function( route, navigator, index, navState ){
@@ -85,7 +86,7 @@ export default class Akiro extends Component {
             navigationBar={
               <Navigator.NavigationBar
                 routeMapper={ NavigationBarRouteMapper }
-                style={{backgroundColor:'#3399ff', height:40}}
+                style={{backgroundColor:colors.lightShade, height:40}}
               />
             }
         />
