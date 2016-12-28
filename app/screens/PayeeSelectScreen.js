@@ -110,7 +110,8 @@ class PayeeSelectScreen extends Component {
     return (
         <SelectListElement
           onSelect={ () => { this._onSelectPayee( payee ) } }
-          text={payee.name}
+          text={ payee.name }
+          checked={ this.props.selectedId == payee.id }
           indent={5}
       />
     )
@@ -138,7 +139,8 @@ PayeeSelectScreen.defaultProps = {
 }
 
 PayeeSelectScreen.propTypes = {
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  selectedId: PropTypes.number
 }
 
 

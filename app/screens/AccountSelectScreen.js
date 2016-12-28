@@ -51,6 +51,7 @@ class AccountSelectScreen extends Component {
         <SelectListElement
           onSelect={ () => { this._onSelectAccount( account ) } }
           text={account.name}
+          checked={this.props.selectedId == account.id}
       />
     )
   }
@@ -66,7 +67,8 @@ AccountSelectScreen.defaultProps = {
 }
 
 AccountSelectScreen.propTypes = {
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  selectedId: PropTypes.number
 }
 
 

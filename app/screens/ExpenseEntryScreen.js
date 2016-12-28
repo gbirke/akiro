@@ -49,21 +49,24 @@ class ExpenseEntryScreen extends Component {
   _onSelectEnvelope() {
       this.props.navigator.push({
           name: "SelectEnvelope",
-          callback: this.onEnvelopeSelected.bind(this)
+          callback: this.onEnvelopeSelected.bind(this),
+          selectedId: this.state.envelope.id
       })
   }
 
   _onSelectPayee() {
       this.props.navigator.push({
           name: "SelectPayee",
-          callback: this.onPayeeSelected.bind(this)
+          callback: this.onPayeeSelected.bind(this),
+          selectedId: this.state.payee.id
       })
   }
 
   _onSelectAccount() {
       this.props.navigator.push({
           name: "SelectAccount",
-          callback: this.onAccountSelected.bind(this)
+          callback: this.onAccountSelected.bind(this),
+          selectedId: this.state.account.id
       })
   }
 

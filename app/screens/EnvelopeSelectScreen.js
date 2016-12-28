@@ -79,7 +79,8 @@ class EnvelopeSelectScreen extends Component {
     return (
         <SelectListElement
           onSelect={ () => { this._onSelectEnvelope( envelope ) } }
-          text={envelope.name}
+          text={ envelope.name }
+          checked={ this.props.selectedId == envelope.id }
           indent={15}
       />
     )
@@ -104,7 +105,8 @@ EnvelopeSelectScreen.defaultProps = {
 }
 
 EnvelopeSelectScreen.propTypes = {
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  selectedId: PropTypes.number
 }
 
 

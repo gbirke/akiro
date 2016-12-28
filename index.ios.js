@@ -33,16 +33,19 @@ export default class Akiro extends Component {
         case "SelectEnvelope":
             return (<EnvelopeSelectScreen
                 onSelect={ route.callback }
+                selectedId={ route.selectedId }
                 {...globalNavigatorProps}
             />)
         case "SelectPayee":
             return ( <PayeeSelectScreen
                 onSelect={ route.callback }
+                selectedId={ route.selectedId }
                 {...globalNavigatorProps}
             />)
         case "SelectAccount":
         return (<AccountSelectScreen
                 onSelect={ route.callback }
+                selectedId={ route.selectedId }
                 {...globalNavigatorProps}
             />)
       }
