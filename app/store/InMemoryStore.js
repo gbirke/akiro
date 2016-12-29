@@ -1,9 +1,9 @@
 export class InMemoryStore {
     // TODO Remove contents when application is finished
     expenses = [
-        { id: 1, date: '2016-10-24', amount: '5.00', payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
-        { id: 2, date: '2016-10-22', amount: '10.00', payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
-        { id: 3, date: '2016-10-22', amount: '12.97', payee: { name: 'Edeka', id: 2 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Supermarkt', id: 2 } },
+        { id: 1, date: '2016-10-24', amount: 500, payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
+        { id: 2, date: '2016-10-22', amount: 1000, payee: { name: 'Restaurant', id: 1 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Auswärts essen', id: 1 } },
+        { id: 3, date: '2016-10-22', amount: 1297, payee: { name: 'Edeka', id: 2 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Supermarkt', id: 2 } },
     ];
 
     payees = [

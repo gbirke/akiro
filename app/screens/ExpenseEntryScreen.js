@@ -22,7 +22,7 @@ class ExpenseEntryScreen extends Component {
         this.state = this.props.expense
     } else {
         this.state = {
-          amount: '',
+          amount: 0,
           envelope: NULL_ENVELOPE,
           payee: NULL_PAYEE,
           account: NULL_ACCOUNT,
@@ -112,9 +112,11 @@ class ExpenseEntryScreen extends Component {
                     <TextInput
                         style={[styles.amountInput]}
                         keyboardType={'decimal-pad'}
-                        onChangeText={(amount) => this.setState({amount})}
+                        onChangeText={ (amount) => {
+                            this.setState( { amount: amount * 100 } )
+                        } }
                         returnKeyType={'next'}
-                        value={this.state.amount}
+                        value={ (this.state.amount / 100 ).toString() }
                         placeholder='0.00'
                     />
                 </View>
