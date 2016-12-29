@@ -14,7 +14,8 @@ import {
 } from 'react-native';
 import { FormattedWrapper } from 'react-native-globalize';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 
 import ExpensesListScreen from './app/screens/ExpensesListScreen'
 import ExpenseEntryScreen from './app/screens/ExpenseEntryScreen';
@@ -23,6 +24,10 @@ import PayeeSelectScreen from './app/screens/PayeeSelectScreen';
 import AccountSelectScreen from './app/screens/AccountSelectScreen';
 
 import colors from './app/config/colors';
+
+import rootSaga from './app/sagas'
+
+import { loadAll } from './app/actions/storage'
 
 import expenseTracker from './app/reducers/expenseTracker';
 
@@ -51,7 +56,10 @@ const NavigationBarRouteMapper = {
   }
 }
 
-let store = createStore(expenseTracker);
+const sagaMiddleware = createSagaMiddleware();
+let store = createStore( expenseTracker, applyMiddleware(sagaMiddleware) );
+sagaMiddleware.run( rootSaga );
+store.dispatch( loadAll() );
 
 export default class Akiro extends Component {
   _renderScene( route, navigator ) {
@@ -114,7 +122,5 @@ export default class Akiro extends Component {
     );
   }
 }
-
-
 
 AppRegistry.registerComponent('Akiro', () => Akiro);
