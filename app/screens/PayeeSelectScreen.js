@@ -78,8 +78,13 @@ class PayeeSelectScreen extends Component {
   }
 
   _updateSearchDataSource( searchText ) {
-      // this _could_ probably be done better in the reducer
-      const filteredData = this.props.payees.filter( (p) => { return p.name.indexOf( searchText ) > -1 } );
+      let rx;
+      try {
+          rx = new RegExp( searchText, 'i' );
+      } catch ( e ) {
+          rx = new RegExp( searchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i')
+      }
+      const filteredData = this.props.payees.filter( (p) => { return p.name.match( rx ) } );
       this.setState( { searchDataSource: this.state.searchDataSource.cloneWithRows( filteredData ) } );
   }
 
