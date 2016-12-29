@@ -37,5 +37,5 @@ export function loadExampleData( store ) {
         Promise.all( envelopes.map( store.storeEnvelope.bind( store ) ) ),
         Promise.all( payees.map( store.storePayee.bind( store ) ) ),
         Promise.all( expenses.map( store.storeExpense.bind( store ) ) ),
-    ]).then( ( all ) => { console.log("all result", all) } )
+    ]);
 }

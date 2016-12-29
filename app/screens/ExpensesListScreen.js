@@ -54,6 +54,7 @@ class ExpensesListScreen extends Component {
           <ListView
             dataSource={ this.state.expensesDataSource }
             renderRow={ this._renderExpenseRow.bind(this) }
+            enableEmptySections={true}
           />
         </List>
         <View style={styles.addEntryContainer}>

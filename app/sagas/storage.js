@@ -1,6 +1,6 @@
 import { call, apply, put, fork, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as actions from '../actions/storage'
-import { store } from '../store/InMemoryStore';
+import { store } from '../store/SQLiteStore';
 
 function* storeExpense( action ) {
     yield apply( store, store.storeExpense, [ action.payload ] );

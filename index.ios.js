@@ -32,7 +32,8 @@ import { loadAll } from './app/actions/storage'
 import expenseTracker from './app/reducers/expenseTracker';
 
 import { loadExampleData } from './app/store/exampleData';
-import { store as repository } from './app/store/InMemoryStore';
+//import { store as repository } from './app/store/InMemoryStore';
+import { store as repository} from './app/store/SQLiteStore'
 
 const NavigationBarRouteMapper = {
   LeftButton: function( route, navigator, index, navState ){
@@ -64,9 +65,9 @@ let store = createStore( expenseTracker, applyMiddleware(sagaMiddleware) );
 sagaMiddleware.run( rootSaga );
 
 // TODO remove this when app is finished
-loadExampleData( repository ).then( () => {
-    store.dispatch( loadAll() )
-}) ;
+loadExampleData( repository )
+.then( () => { store.dispatch( loadAll() ); })
+.catch( err => console.log("Error loading example data", err ));
 
 export default class Akiro extends Component {
   _renderScene( route, navigator ) {

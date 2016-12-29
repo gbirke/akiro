@@ -70,6 +70,7 @@ class EnvelopeSelectScreen extends Component {
             renderRow={ this._renderEnvelopeRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
             renderSectionHeader={ this._renderSectionHeader }
+            enableEmptySections={true}
           />
         </List>
       </View>

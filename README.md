@@ -33,11 +33,11 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 - [x] Edit expense
 
 ### 0.2 Storage and export
-- [ ] Create DB-structure and integrate sqlite (https://github.com/andpor/react-native-sqlite-storage)
-- [ ] Put dummy values in DB
+- [x] Create DB-structure and integrate sqlite (https://github.com/andpor/react-native-sqlite-storage)
+- [x] Put dummy values in DB
 - [ ] Add DB-connected search field for envelope and payee
 - [ ] Add new payee to DB, if no exact match in search field
-- [ ] Store expense in DB (and update expense list screen)
+- [x] Store expense in DB (and update expense list screen)
 - [ ] Export expenses as CSV via mail
 
 ### 0.3 Speed up data entry

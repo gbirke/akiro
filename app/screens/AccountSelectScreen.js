@@ -42,6 +42,7 @@ class AccountSelectScreen extends Component {
             dataSource={ this.state.accountsDataSource }
             renderRow={ this._renderAccountRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
+            enableEmptySections={true}
           />
         </List>
       </View>
