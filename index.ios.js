@@ -31,6 +31,9 @@ import { loadAll } from './app/actions/storage'
 
 import expenseTracker from './app/reducers/expenseTracker';
 
+import { loadExampleData } from './app/store/exampleData';
+import { store as repository } from './app/store/InMemoryStore';
+
 const NavigationBarRouteMapper = {
   LeftButton: function( route, navigator, index, navState ){
     if (route.index === 0) {
@@ -59,7 +62,11 @@ const NavigationBarRouteMapper = {
 const sagaMiddleware = createSagaMiddleware();
 let store = createStore( expenseTracker, applyMiddleware(sagaMiddleware) );
 sagaMiddleware.run( rootSaga );
-store.dispatch( loadAll() );
+
+// TODO remove this when app is finished
+loadExampleData( repository ).then( () => {
+    store.dispatch( loadAll() )
+}) ;
 
 export default class Akiro extends Component {
   _renderScene( route, navigator ) {
