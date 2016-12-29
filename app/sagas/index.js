@@ -6,6 +6,7 @@ export default function* rootSaga() {
     storage.loadExpensesSaga(),
     storage.loadPayeesSaga(),
     storage.loadEnvelopesSaga(),
+    storage.loadAccountsSaga(),
     storage.loadAllSaga()
   ]
 }

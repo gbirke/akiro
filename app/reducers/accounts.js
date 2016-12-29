@@ -1,17 +1,14 @@
-// TODO Remove this when application is finished
-const initialState  = [
-  { name: 'Bargeld', id: 1 },
-  { name: 'Girokonto', id: 2 },
-  { name: 'Kreditkarte', id: 3 },
-  { name: 'Coinbase', id: 4 },
-];
+import { LOAD_ACCOUNTS_SUCCESS } from '../actions/storage'
 
-export default function accounts(state, action) {
+export default function accounts( state, action ) {
   if (typeof state === 'undefined') {
-    return initialState
+    return []
   }
 
-  // For now, don't handle any actions
-  // and just return the state given to us.
+  switch (action.type) {
+      case LOAD_ACCOUNTS_SUCCESS:
+          return action.payload
+  }
+
   return state
 }

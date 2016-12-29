@@ -5,6 +5,8 @@ export const LOAD_PAYEES = 'LOAD_PAYEES';
 export const LOAD_PAYEES_SUCCESS = 'LOAD_PAYEES_SUCCESS';
 export const LOAD_ENVELOPES = 'LOAD_ENVELOPES';
 export const LOAD_ENVELOPES_SUCCESS = 'LOAD_ENVELOPES_SUCCESS';
+export const LOAD_ACCOUNTS = 'LOAD_ACCOUNTS';
+export const LOAD_ACCOUNTS_SUCCESS = 'LOAD_ACCOUNTS_SUCCESS';
 export const LOAD_ALL = 'LOAD_ALL';
 
 // TODO add flux annotations for type checking
@@ -37,6 +39,14 @@ export function loadEnvelopes() {
 
 export function loadEnvelopesSuccess( envelopes ) {
     return { type: LOAD_ENVELOPES_SUCCESS, payload: envelopes }
+}
+
+export function loadAccounts() {
+    return { type: LOAD_ACCOUNTS }
+}
+
+export function loadAccountsSuccess( accounts ) {
+    return { type: LOAD_ACCOUNTS_SUCCESS, payload: accounts }
 }
 
 export function loadAll() {

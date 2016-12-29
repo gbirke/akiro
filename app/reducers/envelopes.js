@@ -1,6 +1,6 @@
 import { LOAD_ENVELOPES_SUCCESS } from '../actions/storage'
 
-export default function payees(state, action) {
+export default function envelopes(state, action) {
   if (typeof state === 'undefined') {
     return []
   }

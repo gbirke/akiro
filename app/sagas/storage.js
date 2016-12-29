@@ -26,6 +26,12 @@ function* loadEnvelopes() {
     yield put( actions.loadEnvelopesSuccess( envelopes ) );
 }
 
+function* loadAccounts() {
+    const store = getStore();
+    const accounts = yield apply( store, store.loadAccounts );
+    yield put( actions.loadAccountsSuccess( accounts ) );
+}
+
 export function* storeExpenseSaga() {
   yield takeEvery( actions.STORE_EXPENSE, storeExpense );
 }
@@ -42,8 +48,13 @@ export function* loadEnvelopesSaga() {
     yield takeEvery( actions.LOAD_ENVELOPES, loadEnvelopes );
 }
 
+export function* loadAccountsSaga() {
+    yield takeEvery( actions.LOAD_ACCOUNTS, loadAccounts );
+}
+
 export function* loadAllSaga() {
     yield fork( put, actions.loadExpenses() );
     yield fork( put, actions.loadPayees() );
     yield fork( put, actions.loadEnvelopes() );
+    yield fork( put, actions.loadAccounts() );
 }

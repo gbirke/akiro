@@ -23,7 +23,14 @@ export class InMemoryStore {
         { name: 'Miete', id: 4, category: 'Wohnen' },
         { name: 'Strom', id: 5, category: 'Wohnen' },
         { name: 'Zahnzusatzversicherung', id: 6, category: 'Finanzen' },
-    ]
+    ];
+
+    accounts = [
+        { name: 'Bargeld', id: 1 },
+        { name: 'Girokonto', id: 2 },
+        { name: 'Kreditkarte', id: 3 },
+        { name: 'Coinbase', id: 4 },
+    ];
 
     storeExpense( expense ) {
         this.expenses.push( expense );
@@ -40,6 +47,10 @@ export class InMemoryStore {
 
     loadEnvelopes() {
         return Promise.resolve( this.envelopes );
+    }
+
+    loadAccounts() {
+        return Promise.resolve( this.accounts );
     }
 }
 
