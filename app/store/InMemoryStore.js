@@ -6,14 +6,27 @@ export class InMemoryStore {
         { id: 3, date: '2016-10-22', amount: '12.97', payee: { name: 'Edeka', id: 2 }, account: { 'name': 'Bargeld', id: 1 }, envelope: { name: 'Supermarkt', id: 2 } },
     ];
 
+    payees = [
+        { name: 'Restaurant', id: 1 },
+        { name: 'Edeka', id: 2 },
+        { name: 'Biosphäre', id: 3 },
+        { name: 'Vermieter', id: 4 },
+        { name: 'Stadtwerke', id: 5 },
+        { name: 'Krankenkasse', id: 6 },
+        { name: 'Rudi\'s Resterampe', id: 7 }
+    ];
+
     storeExpense( expense ) {
         this.expenses.push( expense );
         return Promise.resolve( expense );
     }
 
     loadExpenses() {
-        console.log("loading expenses", this, this.expenses );
         return Promise.resolve( this.expenses );
+    }
+
+    loadPayees() {
+        return Promise.resolve( this.payees );
     }
 }
 

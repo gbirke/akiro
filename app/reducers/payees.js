@@ -1,20 +1,14 @@
-// TODO Remove this when application is finished
-const initialState  = [
-    { name: 'Restaurant', id: 1 },
-    { name: 'Edeka', id: 2 },
-    { name: 'Biosphäre', id: 3 },
-    { name: 'Vermieter', id: 4 },
-    { name: 'Stadtwerke', id: 5 },
-    { name: 'Krankenkasse', id: 6 },
-    { name: 'Rudi\'s Resterampe', id: 7 }
-];
+import { LOAD_PAYEES_SUCCESS } from '../actions/storage';
 
 export default function payees(state, action) {
   if (typeof state === 'undefined') {
-    return initialState
+    return [];
   }
 
-  // For now, don't handle any actions
-  // and just return the state given to us.
+  switch (action.type) {
+      case LOAD_PAYEES_SUCCESS:
+          return action.payload
+  }
+  
   return state
 }
