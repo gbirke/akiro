@@ -20,6 +20,12 @@ function* loadPayees() {
     yield put( actions.loadPayeesSuccess( payees ) );
 }
 
+function* loadEnvelopes() {
+    const store = getStore();
+    const envelopes = yield apply( store, store.loadEnvelopes );
+    yield put( actions.loadEnvelopesSuccess( envelopes ) );
+}
+
 export function* storeExpenseSaga() {
   yield takeEvery( actions.STORE_EXPENSE, storeExpense );
 }
@@ -32,7 +38,12 @@ export function* loadPayeesSaga() {
     yield takeEvery( actions.LOAD_PAYEES, loadPayees );
 }
 
+export function* loadEnvelopesSaga() {
+    yield takeEvery( actions.LOAD_ENVELOPES, loadEnvelopes );
+}
+
 export function* loadAllSaga() {
     yield fork( put, actions.loadExpenses() );
     yield fork( put, actions.loadPayees() );
+    yield fork( put, actions.loadEnvelopes() );
 }

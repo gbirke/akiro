@@ -3,6 +3,8 @@ export const LOAD_EXPENSES = 'LOAD_EXPENSES';
 export const LOAD_EXPENSES_SUCCESS = 'LOAD_EXPENSES_SUCCESS';
 export const LOAD_PAYEES = 'LOAD_PAYEES';
 export const LOAD_PAYEES_SUCCESS = 'LOAD_PAYEES_SUCCESS';
+export const LOAD_ENVELOPES = 'LOAD_ENVELOPES';
+export const LOAD_ENVELOPES_SUCCESS = 'LOAD_ENVELOPES_SUCCESS';
 export const LOAD_ALL = 'LOAD_ALL';
 
 // TODO add flux annotations for type checking
@@ -21,14 +23,22 @@ export function loadExpensesSuccess( expenses ) {
     return { type: LOAD_EXPENSES_SUCCESS, payload: expenses };
 }
 
-export function loadAll() {
-    return { type: LOAD_ALL }
-}
-
 export function loadPayees() {
     return { type: LOAD_PAYEES }
 }
 
 export function loadPayeesSuccess( payees ) {
     return { type: LOAD_PAYEES_SUCCESS, payload: payees }
+}
+
+export function loadEnvelopes() {
+    return { type: LOAD_ENVELOPES }
+}
+
+export function loadEnvelopesSuccess( envelopes ) {
+    return { type: LOAD_ENVELOPES_SUCCESS, payload: envelopes }
+}
+
+export function loadAll() {
+    return { type: LOAD_ALL }
 }

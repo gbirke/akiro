@@ -1,19 +1,14 @@
-// TODO Remove this when application is finished
-const initialState  = [
-    { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
-    { name: 'Supermarkt', id: 2, category: 'Allgemeine Ausgaben' },
-    { name: 'Naturkost', id: 3, category: 'Allgemeine Ausgaben' },
-    { name: 'Miete', id: 4, category: 'Wohnen' },
-    { name: 'Strom', id: 5, category: 'Wohnen' },
-    { name: 'Zahnzusatzversicherung', id: 6, category: 'Finanzen' },
-];
+import { LOAD_ENVELOPES_SUCCESS } from '../actions/storage'
 
 export default function payees(state, action) {
   if (typeof state === 'undefined') {
-    return initialState
+    return []
   }
 
-  // For now, don't handle any actions
-  // and just return the state given to us.
+  switch (action.type) {
+      case LOAD_ENVELOPES_SUCCESS:
+          return action.payload
+  }
+
   return state
 }

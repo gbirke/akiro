@@ -16,6 +16,15 @@ export class InMemoryStore {
         { name: 'Rudi\'s Resterampe', id: 7 }
     ];
 
+    envelopes = [
+        { name: 'Auswärts essen', id: 1, category: 'Allgemeine Ausgaben' },
+        { name: 'Supermarkt', id: 2, category: 'Allgemeine Ausgaben' },
+        { name: 'Naturkost', id: 3, category: 'Allgemeine Ausgaben' },
+        { name: 'Miete', id: 4, category: 'Wohnen' },
+        { name: 'Strom', id: 5, category: 'Wohnen' },
+        { name: 'Zahnzusatzversicherung', id: 6, category: 'Finanzen' },
+    ]
+
     storeExpense( expense ) {
         this.expenses.push( expense );
         return Promise.resolve( expense );
@@ -27,6 +36,10 @@ export class InMemoryStore {
 
     loadPayees() {
         return Promise.resolve( this.payees );
+    }
+
+    loadEnvelopes() {
+        return Promise.resolve( this.envelopes );
     }
 }
 
