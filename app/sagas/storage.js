@@ -4,7 +4,7 @@ import getStore from '../store/InMemoryStore';
 
 function* storeExpense( action ) {
     const store = getStore();
-    yield apply( store, store.storeExpense, action.payload );
+    yield apply( store, store.storeExpense, [ action.payload ] );
     yield put( actions.loadExpenses() )
 }
 

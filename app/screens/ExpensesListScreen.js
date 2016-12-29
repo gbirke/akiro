@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet } from 'react-native';
 import { List, Button } from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -8,12 +8,6 @@ import { connect } from 'react-redux'
 import ExpenseListItem from '../components/ExpenseListItem';
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import colors from '../config/colors'
-
-const mapStateToProps = (state) => {
-  return {
-    expenses: state.expenses
-  }
-}
 
 class ExpensesListScreen extends Component {
     static defaultProps = {
@@ -74,7 +68,6 @@ class ExpensesListScreen extends Component {
   }
 
   _renderExpenseRow( expense ) {
-    //const selectExpenseHandler = this._onSelectExpense.bind(this);
     return (
       <ExpenseListItem
           expense={ expense }
@@ -98,5 +91,15 @@ addEntryContainer: {
 }
 
 })
+
+ExpensesListScreen.propTypes = {
+    expenses: PropTypes.array,
+}
+
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expenses
+  }
+}
 
 export default connect(mapStateToProps)(ExpensesListScreen)

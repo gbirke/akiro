@@ -38,19 +38,19 @@ export class InMemoryStore {
     }
 
     loadExpenses() {
-        return Promise.resolve( this.expenses );
+        return Promise.resolve( this.expenses.slice(0) );
     }
 
     loadPayees() {
-        return Promise.resolve( this.payees );
+        return Promise.resolve( this.payees.slice(0) );
     }
 
     loadEnvelopes() {
-        return Promise.resolve( this.envelopes );
+        return Promise.resolve( this.envelopes.slice(0) );
     }
 
     loadAccounts() {
-        return Promise.resolve( this.accounts );
+        return Promise.resolve( this.accounts.slice(0) );
     }
 }
 

@@ -3,19 +3,18 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ScrollView, StatusBar, StyleSheet, TextInput, DatePickerIOS } from 'react-native';
 import { Button } from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import ListSelector from '../components/ListSelector';
 import colors from '../config/colors'
+import { storeExpense } from '../actions/storage'
 
 const NULL_ENVELOPE = { id: 0, name: '' };
 const NULL_PAYEE  = { id: 0, name: '' };
 const NULL_ACCOUNT = { id: 0, name: '' };
 
 class ExpenseEntryScreen extends Component {
-  static defaultProps = {
-    date: new Date()
-  };
 
   constructor(props) {
     super(props)
@@ -27,13 +26,11 @@ class ExpenseEntryScreen extends Component {
           envelope: NULL_ENVELOPE,
           payee: NULL_PAYEE,
           account: NULL_ACCOUNT,
-          date: this.props.date,
+          date: new Date().toString(),
           memo: ''
         }
     }
   }
-
-
 
   onDateChange = (date) => {
     this.setState({date: date.toString()});
@@ -41,8 +38,8 @@ class ExpenseEntryScreen extends Component {
 
   onPressSave() {
       // TODO validate amount > 0 and account id not 0
-      console.log("saving is not implemented", this.state);
-      // TODO Save state in DB, checking if this.props.expense is set to detrmine if insert/update should be called.
+
+      this.props.storeExpense( this.state );
       this.props.navigator.pop();
   }
 
@@ -162,7 +159,8 @@ class ExpenseEntryScreen extends Component {
 }
 
 ExpenseEntryScreen.propTypes = {
-    expense: PropTypes.object
+    expense: PropTypes.object,
+    onStoreExpense: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -190,4 +188,12 @@ const styles = StyleSheet.create({
 
 })
 
-module.exports = ExpenseEntryScreen
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeExpense: ( expense ) => {
+      dispatch(storeExpense( expense) )
+    }
+  }
+}
+
+module.exports = connect(null, mapDispatchToProps)(ExpenseEntryScreen)
