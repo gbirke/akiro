@@ -134,8 +134,8 @@ rowHeaderText: {
 },
 
 rowSeparator: {
-    borderBottomColor: '#ededed',
-    borderBottomWidth: 1,
+    borderBottomColor: colors.rowSeparator,
+    borderBottomWidth: StyleSheet.hairlineWidth,
 }
 
 })

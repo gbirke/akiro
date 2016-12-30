@@ -3,8 +3,12 @@
 import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet, TouchableHighlight } from 'react-native';
 import { Icon, Text } from 'react-native-elements'
-import colors from 'react-native-elements/src/config/colors'
 
+import colors from '../config/colors'
+
+/**
+ * A List element that indicates another list is to be selected
+ */
 class ListSelector extends Component {
     render() {
         const textStyle = this.props.itemSelected ? styles.selectedItemText : styles.placeholderItemText;
@@ -39,8 +43,8 @@ const styles = StyleSheet.create({
 
   container: {
       padding: 10,
-      borderBottomColor: '#ededed',
-      borderBottomWidth: 1,
+      borderBottomColor: colors.rowSeparator,
+      borderBottomWidth: StyleSheet.hairlineWidth,
       backgroundColor: 'white'
   },
 
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
   },
 
   placeholderItemText: {
-      color: colors.grey2,
+      color: colors.placeholder,
       fontStyle: 'italic',
       flex: 1
   },

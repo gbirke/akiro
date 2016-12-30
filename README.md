@@ -35,7 +35,7 @@ For running the iOS app, the [React native CLI](https://facebook.github.io/react
 ### 0.2 SQL Storage
 - [x] Create DB-structure and integrate sqlite (https://github.com/andpor/react-native-sqlite-storage)
 - [x] Put dummy values in DB
-- [ ] Add new payee to DB, if no exact match in search field
+- [x] Add new payee to DB, if no exact match in search field
 - [x] Store expense in DB (and update expense list screen)
 
 ### 0.3 Export

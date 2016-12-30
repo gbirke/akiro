@@ -7,7 +7,11 @@ import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
 import SelectListElement from '../components/SelectListElement'
+import AddItemListElement from '../components/AddItemListElement'
 import colors from '../config/colors'
+
+// TODO Don't use store directly, move all handlers to Redux
+import { store } from '../store/SQLiteStore'
 
 function compareSectionKeys( sectionA, sectionB ) {
     // TODO: special cases for geolocated "around you" section
@@ -35,6 +39,20 @@ function prepareData( payeeRows ) {
     const sortedSectionMap = new Map( [...rowSectionMap.entries()].sort( compareSectionKeys ) )
     return { dataBlob, sectionIds: Array.from(sortedSectionMap.keys()), rowIds: Array.from(sortedSectionMap.values()) }
 
+}
+
+// Conditional add item element
+const AddItem = ( props ) => {
+    if ( !props.text ) {
+        return null;
+    }
+    return (
+        <AddItemListElement
+            text={ `Add new payee '${props.text}'` }
+            indent={ 5 }
+            onAdd={ props.onAdd }
+        />
+    )
 }
 
 class PayeeSelectScreen extends Component {
@@ -67,8 +85,13 @@ class PayeeSelectScreen extends Component {
       }
   }
 
-  _onSelectPayee( envelope ) {
-      this.props.onSelect( envelope );
+  _onAddPayee() {
+      store.storePayee( { name: this.state.searchText } )
+        .then( ( payee ) => { this._onSelectPayee(payee) } );
+  }
+
+  _onSelectPayee( payee ) {
+      this.props.onSelect( payee );
       this.props.navigator.pop();
   }
 
@@ -101,7 +124,8 @@ class PayeeSelectScreen extends Component {
             autoCapitalize={'none'}
             clearButtonMode={'while-editing'}
         />
-        <List>
+        <AddItem text={this.state.searchText} onAdd={ this._onAddPayee.bind(this) } />
+        <List containerStyle={ this.state.searchText ? styles.searchListContainer : {} }>
           <ListView
             dataSource={ dataSource }
             renderRow={ this._renderPayeeRow.bind( this ) }
@@ -143,7 +167,7 @@ class PayeeSelectScreen extends Component {
 }
 
 PayeeSelectScreen.defaultProps = {
-  onSelect: () => { console.log("No selection callback specified!") }
+  onSelect: ( payee ) => { console.log("No selection callback specified!\nPayee:", payee) }
 }
 
 PayeeSelectScreen.propTypes = {
@@ -160,6 +184,12 @@ const styles = StyleSheet.create({
     alignItems: "stretch"
 },
 
+searchListContainer: {
+    borderTopWidth:0,
+    borderBottomWidth:0,
+    marginTop:0
+},
+
 rowHeader: {
   backgroundColor: colors.darkest,
   paddingTop: 3,
@@ -173,8 +203,8 @@ rowHeaderText: {
 },
 
 rowSeparator: {
-    borderBottomColor: '#ededed',
-    borderBottomWidth: 1,
+    borderBottomColor: colors.rowSeparator,
+    borderBottomWidth: StyleSheet.hairlineWidth,
 }
 
 })

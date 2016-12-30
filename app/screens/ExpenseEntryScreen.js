@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
 
   container: {
     padding: 10,
-    borderBottomColor: '#ededed',
-    borderBottomWidth: 1,
+    borderBottomColor: colors.rowSeparator,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     backgroundColor: 'white'
   },
 

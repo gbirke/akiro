@@ -73,7 +73,10 @@ export class SQLiteStore {
             db.transaction( tx => tx.executeSql(
                 'INSERT OR REPLACE INTO expenses ( id, amount, memo, payee, envelope, account, date ) VALUES (?,?,?,?,?,?,?)',
                 values,
-                (tx, result) => { resolve(result) },
+                (tx, result) => {
+                    expense.id = result.insertId;
+                    resolve( expense )
+                },
                 reject
          ) )
         } );
@@ -90,7 +93,10 @@ export class SQLiteStore {
             db.transaction( tx => tx.executeSql(
                 'INSERT OR REPLACE INTO envelopes ( id, name, category ) VALUES (?,?,?)',
                 values,
-                (tx, result) => { resolve(result) },
+                (tx, result) => {
+                    envelope.id = result.insertId;
+                    resolve( envelope );
+                },
                 reject
          ) )
         } );
@@ -106,7 +112,10 @@ export class SQLiteStore {
             db.transaction( tx => tx.executeSql(
                 'INSERT OR REPLACE INTO accounts ( id, name ) VALUES (?,?)',
                 values,
-                (tx, result) => { resolve(result) },
+                (tx, result) => {
+                    account.id = result.insertId;
+                    resolve( account );
+                },
                 reject
          ) )
         } );
@@ -114,6 +123,7 @@ export class SQLiteStore {
 
     storePayee( payee ) {
         const db = this.db;
+        console.log("storing payee");
         return new Promise( ( resolve, reject ) => {
             const values = [
                 payee.id,
@@ -122,7 +132,10 @@ export class SQLiteStore {
             db.transaction( tx => tx.executeSql(
                 'INSERT OR REPLACE INTO payees ( id, name ) VALUES (?,?)',
                 values,
-                (tx, result) => { resolve(result) },
+                (tx, result) => {
+                    payee.id = result.insertId;
+                    resolve( payee );
+                },
                 reject
          ) )
         } );
