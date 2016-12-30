@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
-import { List, Text, SearchBar } from 'react-native-elements'
+import { Text, SearchBar } from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
@@ -125,15 +125,13 @@ class PayeeSelectScreen extends Component {
             clearButtonMode={'while-editing'}
         />
         <AddItem text={this.state.searchText} onAdd={ this._onAddPayee.bind(this) } />
-        <List containerStyle={ this.state.searchText ? styles.searchListContainer : {} }>
-          <ListView
+        <ListView
             dataSource={ dataSource }
             renderRow={ this._renderPayeeRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
             renderSectionHeader={ this._renderSectionHeader.bind( this ) }
             enableEmptySections={true}
-          />
-        </List>
+        />
       </View>
     )
   }
@@ -182,12 +180,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch"
-},
-
-searchListContainer: {
-    borderTopWidth:0,
-    borderBottomWidth:0,
-    marginTop:0
 },
 
 rowHeader: {

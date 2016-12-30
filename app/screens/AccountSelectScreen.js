@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
-import { List, Text } from 'react-native-elements'
+import { Text } from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import PhoneStatusBar from '../components/PhoneStatusBar';
@@ -37,14 +37,13 @@ class AccountSelectScreen extends Component {
       <View style={ styles.listContainer }>
         <StatusBar />
         <PhoneStatusBar />
-        <List>
-          <ListView
+        <ListView
             dataSource={ this.state.accountsDataSource }
             renderRow={ this._renderAccountRow.bind( this ) }
             renderSeparator={ this._renderSeparator }
             enableEmptySections={true}
-          />
-        </List>
+        />
+
       </View>
     )
   }

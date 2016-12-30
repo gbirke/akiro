@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { View, ListView, StatusBar, StyleSheet } from 'react-native';
-import { List, Button } from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import ExpenseListItem from '../components/ExpenseListItem';
@@ -50,13 +50,11 @@ class ExpensesListScreen extends Component {
       <View style={ styles.expenseList }>
         <StatusBar />
         <PhoneStatusBar />
-        <List>
-          <ListView
+        <ListView
             dataSource={ this.state.expensesDataSource }
             renderRow={ this._renderExpenseRow.bind(this) }
             enableEmptySections={true}
-          />
-        </List>
+        />
         <View style={styles.addEntryContainer}>
             <Button
                 onPress={ this._onPressAdd.bind(this) }
