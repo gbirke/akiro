@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
   statusBarBackground: {
     /* TODO make this platorm-specific and dependent on navigation bar height */
-    height: 40,
+    height: 45,
   }
 
 })

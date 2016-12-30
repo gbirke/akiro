@@ -121,7 +121,7 @@ export default class Akiro extends Component {
                 navigationBar={
                   <Navigator.NavigationBar
                     routeMapper={ NavigationBarRouteMapper }
-                    style={{backgroundColor:colors.lightShade, height:40}}
+                    style={{backgroundColor:colors.lightShade, height:45, paddingTop: 5}}
                   />
                 }
             />
